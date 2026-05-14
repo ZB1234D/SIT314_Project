@@ -1,211 +1,328 @@
-# WalkWell — Iteration 1: **Paper sketches vs current hi-fi** (functional comparison)
+# WalkWell: Original sketches vs Iteration 1 vs post–user study — full interaction map
 
-This document compares **what the hand-drawn flows specified** with **what the current detailed-setup (and related) screens implement**, in **feature-sized units**. It is written so you can lift tables into a report, match **numbered callouts** to figure exports, and paste **Mermaid** into GitHub or [mermaid.live](https://mermaid.live).
+This README supports **SIT216 Assessment 2**. It does three things:
 
-**Full-app journey diagrams (night vs post-study colours):** see `WalkWell-Iteration1-Flowcharts-README.md` in the same folder.
-
-**Source materials in your workspace (for figures):**
-
-- Hi-fi detailed setup strip: `C:\Users\asusn\.cursor\projects\c-Users-asusn-Documents\assets\c__Users_asusn_AppData_Roaming_Cursor_User_workspaceStorage_8233c5d5eab9afe657929928156f1fa1_images_image-2bf97ca1-b7b3-4321-b5c1-90f749347360.png`
-- Paper sketches (annotated wizard + profile): `C:\Users\asusn\.cursor\projects\c-Users-asusn-Documents\assets\c__Users_asusn_AppData_Roaming_Cursor_User_workspaceStorage_8233c5d5eab9afe657929928156f1fa1_images_image-8c8f3fa2-77cb-483f-a7d9-1cf12196ae70.png`
-
-**Legend for tables**
-
-| Column | Meaning |
-|--------|---------|
-| **Sketch** | Hand-drawn corpus intent (steps 3–8 + profile + edit loop). |
-| **Hi-fi now** | Current six-screen “Detailed setup” wizard in Figma-style export. |
-| **Δ** | Net change for Iteration 1 reporting. |
-| **Pain / rationale** | Why the change exists, or what problem it surfaces for usability writing. |
+1. **Critical timeline (matches your correction):** **Iteration 1** is **night / diurnal context** in **copy, scoring labels, and “Why this route?”** — *not* **Normal vs Shortcut**. **Normal vs Shortcut** + **mode control on route details** + **visual/affordance/map interaction** polish sit in **post–usability study** (blue).
+2. **Full baseline:** **Every screen** in the paper → hi-fi spine is named; **every transition** is an **arrow label** (tap / type / save / continue / accept / stay / …).
+3. **Mermaid:** Colour classes — **grey** = original corpus, **green** = Iteration 1 (night intelligence), **blue** = after user testing (planning mode + UI polish).
 
 ---
 
-## 1. Start here — **Detailed setup** (feature-by-feature)
+## 1. Colour legend (`classDef`)
 
-### 1.1 Shell & navigation (all six steps)
+| Class   | Meaning |
+|---------|---------|
+| `paper` | **Baseline** (hand-drawn + same-architecture hi-fi): onboarding, profiles, search, routes, nav, breaks, reroute, feedback, alter prefs. |
+| `iter1` | **Iteration 1:** **night context** on **route options**, **route details / “Why this route?”** (lighting · activity · crossings), **in-nav reroute** tuned for night (*better-lit, more active*). |
+| `post`  | **Post–user study:** **Normal vs Shortcut** planning contract, **expand/return to full comparison** from route details, **dark theme**, **larger map**, **slider affordance**, **draggable map**. |
 
-| Feature | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Wizard container** | Each step shows **step number** + **progress bar**; “Continue” linear. | Header **“Detailed setup”** + **horizontal stepper** with **six labels** (Safety → Time) and **icons**; active step highlighted. | **Stronger wayfinding** | Research annotations stressed **reducing cognitive load**; an explicit **labelled stepper** makes position in the task visible without reading body copy. |
-| **Back** | Implied (standard mobile). | **Back arrow** top-left on each step. | **Same convention** | Supports **error recovery** (“I tapped wrong option”). |
-| **Primary CTA** | “Continue” on intermediate steps. | “**Continue**” steps 1–5, “**Finish**” on step 6. | **Clear terminal action** | Matches expectation that the last step **commits** the wizard segment. |
-| **Research traceability** | Handwritten notes tie **safety %**, **heat pain point**, **crowd spectrum**, etc. | Visual design only; **no on-screen rationale text**. | **Loss of *explicit* educative layer** | Sketches **encoded justification** for markers; hi-fi is cleaner but you must **explain rationale in the report**, not only in UI. |
-
----
-
-### 1.2 Step A — **Safety / “What makes you feel safe?”**
-
-| Control | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Avoid poor lighting** | Toggle ON concept (wording: low light / poorly lit). | Toggle; copy ties to **night lighting** (“good lighting at night”). | **Sharper night-safe wording** | Aligns safety construct with **after-dark legibility** — supports your **Iteration 1 night story** in the *preference model*, not only route screens. |
-| **Avoid isolation** | Toggle ON. | Toggle ON; copy “quiet, low traffic places”. | **Same intent** | Matches sketch goal: skip **isolated** segments. |
-| **People nearby** | Toggle ON. | Toggle ON; “busy footpaths / main streets”. | **Same intent** | Supports **natural surveillance** framing (later echoed in **night “activity”** route copy). |
-| **Safer crossings** | **Not present** as own control (crossings bundled in “Rest & physical” in some sketch lists). | **Fourth toggle** — “signalised and zebra crossings”. | **Expanded surface area** | Makes **crosssing quality** a first-class preference; pairs with **night route “Why”** rows about **safer crossings**. Trade-off: **more toggles = slightly higher setup load** (mitigated by step grouping). |
-
-**Sketch pain point called out in annotations:** safety theme **~29.3%** of concerns → screen **earned early placement** in the journey.
+**Night “Why this route?” (readable wording):** the night screen explains **three separate dimensions** — **better lighting** (well-lit corridors), **more active areas** (busier streets / natural surveillance), **safer crossings** (signals / pedestrian priority). It does **not** mush them into one meaningless slug.
 
 ---
 
-### 1.3 Step B — **Heat & shade**
+## 2. Chart A — **Complete baseline journey** (all screens, all interactions)
 
-| Control | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Construct** | Three ordered choices: **low / balanced / max** shade (efficiency vs shade). | **Four radios**: Fastest (minimal shade), Balanced (selected in mock), Maximise shade, **No shade** (ignore factor). | **Finer + explicit “ignore shade”** | Sketch avoided “null” shade; hi-fi adds **No shade** for users who **do not** want shade routing (e.g. night-primary users or simplicity). **Risk:** more options can slow **Quick**-minded users — stepper still contains it in one screen. |
-| **Research link** | Annotation: **heat** top survey pain → need to **control sun exposure**. | Same user need; UI uses **plain language** under each radio. | **Preserved intent** | Report should cite **same pain point**; hi-fi removes the **handwritten %** but keeps the **behavioural offer**. |
-
----
-
-### 1.4 Step C — **Crowd / social density along the route**
-
-| Control | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Input pattern** | **Horizontal spectrum slider**: “Quiet streets” ↔ “Lively areas” — **one degree of freedom**. | **Four discrete radios**: Deserted → Quiet → Lively → Noisy. | **Representation changed** | Sketch rationale: users **dislike both** extreme crowding **and** emptiness → **slider** suggests **middle bias** and **low cognitive buckets**. Hi-fi **bins** the spectrum into **four labelled extremes** (including **“Deserted”**, which is stronger than “quiet”). |
-| **Why this matters for your report** | Emphasise **faithfulness to research story** vs **engineering / design simplification**. | If the slider was **research-validated**, the radio version is a **deliberate or incidental departure** — state which. If deliberate: radios reduce **ambiguous slider thumb position**; if incidental: flag as **technical debt** or **post-study revisit**. |
-
----
-
-### 1.5 Step D — **Rest & physical comfort**
-
-| Control | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Bench rest points** | Toggle. | Toggle OFF in mock. | **Same control** | Sketch: routes **without** these features get **lower suitability** — hi-fi must **propagate** into scoring (implementation claim to check in prototype). |
-| **Water fountain** | Toggle. | Toggle. | Same | |
-| **Flat terrain** | Toggle. | Toggle. | Same | |
-| **Safe pedestrian crossings** | In sketch list **here** (alongside rest). | In hi-fi moved to **Safety** step as **fourth toggle**; Rest step still has **“Safe pedestrian crossings”** toggle in your mock — **verify against Figma** (duplicate risk). | **Possible double placement** | If both exist, **harmonise copy** or **single source of truth** to avoid contradictory weights. If only one is true in final file, **update this table** to match repo-of-truth Figma. |
-
-**Annotation pain from sketch:** “make walking **manageable**, not just possible” → **multiple simultaneous** comforts.
-
----
-
-### 1.6 Step E — **Social & cultural comfort**
-
-| Control | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Familiar neighbourhoods** | Toggle. | Toggle. Copy: “Increase scope of protection”. | **Same family** | Sketch linked to **identity-based risk** — keep that sentence in report ethics / cultural subsection. |
-| **Religious / community** | “Religious/community centers”. | “Religious community centers” + gentler approach copy. | **Tighter wording** | Same intent; hi-fi more **respectful / careful** tone. |
-| **Shopping areas** | Toggle (shopping). | **“24/7 store area”** toggle — **not identical** | **Semantic shift** | Sketch emphasises **daytime commercial vibrancy**; hi-fi emphasises **always-on amenity** (noise overlaps with **safety** at night). Good for **night comfort** story; may **drop pure retail** shade if that mattered in research. |
-| **Active community streets** | Toggle. | Toggle ON in mock. | Same | |
-| **Subtitle bug** | N/A | Card subtitle repeats **“Where you want to take rest?”** (wrong — copied from Rest step). | **Content QA failure** | Flag in **usability / polish**: erodes **trust** and **task clarity**; fix before submission if possible. |
-
----
-
-### 1.7 Step F — **Time trade-off**
-
-| Control | Sketch | Hi-fi now | Δ | Pain point / rationale |
-|--------|--------|-----------|---|-------------------------|
-| **Range** | **0 / +5 / +10 / +15 min** radios — coarse, **low screen height**. | **0–50 min** on a **slider** plus **six circular minute chips** (0–50). | **Wider range + dual control** | Users can aim for **longer willingness** than +15 (matches some hi-fi route cards). |
-| **Affordance risk (post-study)** | Radios read as **one-of-many** clearly. | Chips **look like independent buttons** — participants may think **multi-select** or **navigate away**. | **Documented pain** | Belongs in **post–usability study**: **visual hierarchy** so **ticks ≠ primary actions**; you already colour-coded that work as **blue / polish** in the flow README. |
-
----
-
-### 1.8 After the wizard — **Comfort profile summary & edit loop**
-
-| Feature | Sketch | Hi-fi now (from broader app, align to your Figma) | Δ | Pain point / rationale |
-|--------|--------|---------------------------------------------------|---|-------------------------|
-| **Summary list** | **Six rows** (Safety, Shade, Crowd, **Physical**, Cultural, **Time**) with **chevron** edit. | Detailed profile list in app matches same **categories** (wording may vary: “Physical comfort”). | **Non-linear return** | Sketch explicitly: **Save returns to profile**, not forced linear replay — **reduces rework** after testing. |
-| **Edit from summary** | Category screen with **Save** replaces **Continue**. | Same pattern in hi-fi profile editors (**Save**). | **Preserved** | Critical for **iterative tuning** without re-onboarding. |
-| **Customise more** | Quick path can **expand** to detailed (in other sheets). | Present in quick-profile flows in hi-fi. | **Outside this strip** | Mention **cross-link** if figure set is detailed-only. |
-
----
-
-## 2. **Annotated figure guides** (what to put on exports)
-
-### Figure D1 — **Side-by-side: paper Step 3–8 vs hi-fi six steps**
-
-**Layout:** Left = sketch collage; Right = six-phone strip (your first image).
-
-| Callout | Point on **sketch** | Point on **hi-fi** | One-line caption for marker |
-|--------|---------------------|---------------------|------------------------------|
-| **①** | Handwritten **% / “top pain point”** notes next to Safety / Heat. | **Stepper labels** + icon row. | “Research rationale lived in **annotations**; hi-fi carries **structure + clarity** on-device.” |
-| **②** | **Crowd = slider** between quiet ↔ lively. | **Crowd = four radio cards**. | “**Same preference dimension**, **different control** — impacts granularity and middle-ground bias.” |
-| **③** | Time = **+15 min cap** radios. | Time = **50 min slider + chips**. | “**Wider time budget** exposure; **affordance risk** on chip styling (post-test).” |
-| **④** | Profile **Save** + **chevron** edit loop. | (Separate frame) detailed profile — align when compositing. | “**Non-linear editing** preserved after wizard.” |
-| **⑤** | Crossings may sit under **Rest** in sketch. | Crossings emphasised under **Safety** (and check Rest duplicate). | “**Information architecture** refined; watch **duplicate controls**.” |
-
-Keep to **five** bullets in caption; move extra nuance to body text.
-
-### Figure D2 — **Single hi-fi step with critique callouts (for pain-focused paragraph)**
-
-Use **Social & Cultural** + **Time** screens:
-
-| Callout | Location | For report |
-|--------|----------|------------|
-| **①** | Social card **wrong subtitle** | Content bug → **credibility** risk. |
-| **②** | Rest step **generic body text** repeated | Placeholder → says “**Rest stops will be added**” for all toggles → weak **specificity**. |
-| **③** | Time **circular minute chips** | **False affordance** risk (post–usability study). |
-
----
-
-## 3. Flowcharts — **Detailed setup only** (Mermaid, colour-coded)
-
-**Class meanings**
-
-| class | Meaning |
-|--------|---------|
-| `sketch` | Behaviour / control as **paper** specified. |
-| `hifi` | **Current** detailed wizard behaviour. |
-| `issue` | **Mismatch**, **bug**, or **usability debt** to mention in report. |
+*Grey only. Read arrow labels as the **minimum** interaction set you can demo.*
 
 ```mermaid
 flowchart TB
-  subgraph SK["Sketch detailed path linear then hub"]
-    SK1[Step 3 Safety 3 toggles]
-    SK2[Step 4 Heat shade 3 radios low bal max]
-    SK3[Step 5 Crowd slider quiet lively]
-    SK4[Step 6 Rest 4 toggles incl crossings notion]
-    SK5[Step 7 Social 4 toggles incl shopping familiar]
-    SK6[Step 8 Time radios 0 5 10 15]
-    SK7[Comfort profile summary Save chevrons]
-    SK8[Category editor Save returns to SK7]
-    SK1 --> SK2 --> SK3 --> SK4 --> SK5 --> SK6 --> SK7
-    SK7 --> SK8 --> SK7
+  subgraph O1["A. First launch / onboarding"]
+    W([Welcome])
+    H0[[Home on defaults after Skip]]
+    S1[Step 1 Value props Safer Cooler Simpler]
+    S2[Choose Quick or Detailed setup]
+    W -->|Tap Skip for now| H0
+    W -->|Tap Set preferences| S1
+    S1 -->|Tap Continue| S2
   end
 
-  subgraph HI["Hi-fi detailed setup six steps"]
-    H1[Step 1 Safety 4 toggles crossings explicit]
-    H2[Step 2 Heat shade 4 radios incl no shade]
-    H3[Step 3 Crowd 4 radios deserted to noisy]
-    H4[Step 4 Rest 4 toggles bench fountain flat crossings]
-    H5[Step 5 Social 4 toggles 24 7 store etc subtitle bug risk]
-    H6[Step 6 Time slider 0 to 50 plus minute chips]
-    H7[Finish to detailed profile list in app]
-    H1 --> H2 --> H3 --> H4 --> H5 --> H6 --> H7
+  subgraph O2["B. Quick setup path"]
+    Q1["Quick Step 1 of 2 Safety basics plus Heat and Shade"]
+    Q2["Quick Step 2 of 2 Time tradeoff slider"]
+    PQ[Quick profile summary Save Customise more]
+    S2 -->|Pick Quick setup| Q1
+    Q1 -->|Tap Continue| Q2
+    Q2 -->|Tap Finish| PQ
   end
 
-  SK3 -.->|representation delta| H3
-  SK6 -.->|range and control delta| H6
-  SK4 -.->|crossings placement| H1
+  subgraph O3["C. Detailed setup path linear"]
+    D1[Safety Profile toggles Save]
+    D2[Heat and Shade radios Save]
+    D3[Crowd Comfort radios Save]
+    D4[Rest and Physical toggles Save]
+    D5[Social and Cultural toggles Save]
+    D6[Time tradeoff slider or list Save]
+    PD[Detailed profile summary Save]
+    S2 -->|Pick Detailed setup| D1
+    D1 -->|Tap Continue| D2
+    D2 -->|Tap Continue| D3
+    D3 -->|Tap Continue| D4
+    D4 -->|Tap Continue| D5
+    D5 -->|Tap Continue| D6
+    D6 -->|Tap Continue| PD
+  end
 
-  classDef sketch fill:#ECEFF1,stroke:#37474F,stroke-width:2px,color:#000
-  classDef hifi fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
-  classDef issue fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000
+  subgraph O4["D. Profile hub non-linear edits"]
+    ECAT[Category editor eg Safety Shade Crowd Rest Social Time]
+    PQ -->|Tap Save| HM[Home hub]
+    PD -->|Tap Save| HM
+    PQ -->|Tap Customise more| PD
+    PQ -->|Tap row or edit| ECAT
+    PD -->|Tap row or edit| ECAT
+    ECAT -->|Tap Save| PQ
+    ECAT -->|Tap Save| PD
+  end
 
-  class SK1,SK2,SK3,SK4,SK5,SK6,SK7,SK8 sketch
-  class H1,H2,H3,H4,H5,H6,H7 hifi
-  class H5 issue
+  subgraph O5["E. Shell Home Saved Preferences"]
+    HM -->|Bottom tab Home| HM
+    HM -->|Bottom tab Saved| SV[Saved list or placeholders]
+    SV -->|Back or tab Home| HM
+    HM -->|Bottom tab Preferences| PF[Preferences entry mirrors profile hub]
+    PF -->|Back or finish| HM
+    HM -->|Tap Comfort summary or settings chip| PF
+    HM -->|Tap Your current location| HM
+  end
+
+  subgraph O6["F. Search and destination"]
+    HM -->|Tap Where to search| SC0[Search idle saved chips Home Work Uni plus Recent]
+    SC0 -->|Tap saved chip| SC1[Search with destination filled]
+    SC0 -->|Tap recent row| SC1
+    SC0 -->|Type query| SC2[Search suggestions typeahead]
+    SC2 -->|Tap suggestion row| SC1
+    SC2 -->|No match state| NR[No results found adjust spelling]
+    NR -->|Clear or edit query| SC0
+    SC1 -->|Tap Find route enabled| LD[Loading Calculating route]
+  end
+
+  subgraph O7["G. Planning compare and explain"]
+    LD --> RO[Route options list Comfortable Fastest Shaded Quiet etc]
+    RO -->|Tap Select on a card| RD[Route details map summary Start navigation]
+    RO -->|Scroll compare| RO
+    RD -->|Back| RO
+    WH1[Why read Shade or heat fit]
+    WH2[Why read Safe accessible crossings lighting isolation]
+    WH3[Why read Crowd or quiet fit]
+    RD -->|Scroll read| WH1
+    RD -->|Scroll read| WH2
+    RD -->|Scroll read| WH3
+    RD -->|Tap Start navigation| NV[Turn by turn navigation map]
+  end
+
+  subgraph O8["H. Navigation runtime"]
+    NV -->|Tap Pause| PAU[Pause or take a break entry]
+    PAU -->|Resume or exit pause| NV
+    NV -->|Tap Add stop or Take a break| BR[Comfort stop picker list bench store toilet fountain]
+    BR -->|Tap Add break on rows multi select| BR
+    BR -->|Tap Continue| NV
+    NV -->|Trigger contextual better path| RR[Reroute sheet explicit minutes Stay vs Accept]
+    RR -->|Tap Stay on current route| NV
+    RR -->|Tap Accept new route| NV
+    NV -->|Auto glare heuristic optional| NV
+    NV -->|End navigation | HM
+    NV -->|Reach destination| AR[Arrived You arrived feedback form]
+    AR -->|Select feedback radio optional| AR
+    AR -->|Tap Finish| AP[Alter preferences suggested tweaks Done]
+    AP -->|Tap Done| HM
+  end
+
+  subgraph O9["I. Resume from Home"]
+    H0 -->|Same as Home hub entry| HM
+  end
+
+  classDef paper fill:#E0E0E0,stroke:#424242,stroke-width:2px,color:#000
+  classDef iter1 fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#000
+  classDef post fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
+
+  class W,H0,S1,S2,Q1,Q2,PQ,D1,D2,D3,D4,D5,D6,PD,ECAT,HM,SV,PF,SC0,SC1,SC2,NR,LD,RO,RD,WH1,WH2,WH3,NV,PAU,BR,RR,AR,AP paper
 ```
 
-**GitHub note:** If red styling on `H5` does not render, mention “subtitle QA” in prose only; or duplicate a small `issue` node linked to `H5`.
+### Baseline checklist (for figures / video)
+
+| # | Screen / state | Outgoing interactions (labels) |
+|---|----------------|--------------------------------|
+| A | Welcome | Skip → Home defaults; Set preferences → Step 1 |
+| B | Step 1 | Continue → Choose setup |
+| C | Choose setup | Quick → Quick 1; Detailed → Safety |
+| D | Quick 1 / 2 | Continue / Finish → Quick profile |
+| E | Detailed 1…6 | Continue chain → Detailed profile |
+| F | Quick / Detailed profile | Save → Home; row tap → Category editor; Quick → Customise more → Detailed |
+| G | Home | Tabs Saved / Preferences; tap search; tap comfort summary; location |
+| H | Search | Chips / recent / typeahead / Find route / no results |
+| I | Loading | → Route options |
+| J | Route options | Select → Route details; scroll compare |
+| K | Route details | Back; scroll Why; Start navigation |
+| L | Navigate | Pause resume Add stop reroute Stay Accept auto glare optional End navigation Arrival |
+| M | Break picker | Multi select; Continue |
+| N | Arrived | Feedback radios; Finish |
+| O | Alter preferences | Done → Home |
+| P | Pause | Pause sheet; resume → Navigate |
+| Q | End navigation | Exit → Home if prototype allows |
+
+**Explicit feedback radios (baseline / day framing):** *Too hot*, *Too crowded / too busy*, *Felt unsafe*, *Confusing directions* (if present), *Good*. **Night framing** may replace *Too hot* with a lighting-relevant option if that matches your final UI.
 
 ---
 
-## 4. **Synthesis paragraph** (paste into Iteration 1 section)
+## 3. Chart B — **Iteration 1 only** (night context: options, why, reroute)
 
-*The detailed-setup sketches grounded each comfort dimension in **survey-derived pain points**—for example foregrounding **safety early**, treating **heat and shade** as a primary lever, and modelling **crowd comfort as a continuous spectrum** to avoid both **over-empty** and **over-crowded** routes. The current hi-fi preserves the **six-dimension architecture** and strengthens **orientation** through a **labelled six-step stepper**, **explicit safer crossings** in safety, and a **broader time trade-off** (up to **50 minutes**) aligned with later route cards. The largest **functional drift** is **crowd input**: **slider → discrete radio bins**, which changes how **middle preferences** are expressed; the team should justify this as either **reduced ambiguity** or **reopen** the slider if fidelity to the research rationale is required. **Content-quality** issues visible in the mock (**duplicated Rest subtitle** on Social, **generic Rest descriptions**) and **minute-chip affordances** belong in **evaluation-driven polish** rather than the core Iteration 1 **night-context** story unless your rubric bundles them.*
+*Green = **added or reframed for after-dark**. Grey = same shell as baseline. **No** Shortcut / Normal here.*
+
+**Intent:** Baseline **already** routes; Iteration 1 **re-weights explanation** so **lighting**, **street activity**, and **crossings** lead at night; **shade / crowd** copy is still in the model but **not the headline** when sun load is irrelevant.
+
+```mermaid
+flowchart TB
+  subgraph PLAN["Planning layer"]
+    NC{Night context after dark or user toggle}
+    HM2[Home hub]
+    SC[Search Find route]
+    LD2[Loading]
+    RO[Route options one list presentation]
+    HM2 --> SC
+    SC --> LD2
+    LD2 --> RO
+    NC -.->|labels chips scores on cards| RO
+    RO --> SEL[Tap Select on one route card]
+    SEL --> NC
+    NC -->|Yes| RDN[Route details NIGHT summary map Start]
+    NC -->|No| RDD[Route details DAY summary map Start]
+  end
+
+  subgraph WHYN["Why this route NIGHT three explainers"]
+    RDN --> WN1[Better lighting well lit streets most of route]
+    RDN --> WN2[More active areas busier corridors]
+    RDN --> WN3[Safer crossings signals zebra priority]
+    WN1 --> ST[Start navigation same nav shell]
+    WN2 --> ST
+    WN3 --> ST
+  end
+
+  subgraph WHYD["Why this route DAY three explainers baseline"]
+    RDD --> WD1[Shade heat fit]
+    RDD --> WD2[Safe accessible]
+    RDD --> WD3[Low crowd quiet]
+    WD1 --> ST
+    WD2 --> ST
+    WD3 --> ST
+  end
+
+  subgraph RUN["Runtime reroute copy"]
+    ST --> NV2[Navigate]
+    NV2 --> RRn[Reroute NIGHT better lit plus more active explicit plus minutes Stay Accept]
+    NV2 --> RRd[Reroute DAY more shaded explicit plus minutes Stay Accept]
+    NC -.->|prefer night sheet| RRn
+    NC -.->|prefer day sheet| RRd
+    RRn -->|Stay| NV2
+    RRn -->|Accept| NV2
+    RRd -->|Stay| NV2
+    RRd -->|Accept| NV2
+  end
+
+  classDef paper fill:#E0E0E0,stroke:#424242,stroke-width:2px,color:#000
+  classDef iter1 fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#000
+  classDef post fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
+
+  class HM2,SC,LD2,RO,SEL,RDD,WD1,WD2,WD3,ST,NV2,RRd paper
+  class NC,RDN,WN1,WN2,WN3,RRn iter1
+```
+
+**Report honesty:** Baseline already had **reroute + Stay / Accept**. Iteration 1 adds the **night-appropriate promise** (*better-lit and more active*) and **Night Comfort** framing — not “we invented rerouting.”
 
 ---
 
-## 5. Next sections (same document pattern — extend when ready)
+## 4. Chart C — **Post–user study** (Normal vs Shortcut + UI polish)
 
-Use **the same table skeleton** for:
+*Blue = introduced **after** usability testing per your brief. Dashed = overlays same nodes as baseline.*
 
-- **Quick setup** (two-step + quick profile vs sketch quick path),
-- **Welcome / Choose setup**,
-- **Home → search → routes → why → nav** (tie to night framing elsewhere),
-- **Post-trip feedback / alter prefs**.
+```mermaid
+flowchart TB
+  subgraph ENTRY["Planning entry after study"]
+    HM3[Home hub]
+    TM{Trip planning mode}
+    HM3 -->|Open search or plan| TM
+    TM -->|Normal full transparency| NORM[Search to Loading to Route options to Route details to Start]
+    TM -->|Shortcut low interruption| SHCUT[Search may skip list to Route detail fastest emphasis optional loader]
+    SHCUT -->|User expands comparison| NORM
+  end
 
-The **flowchart + Mermaid** file `WalkWell-Iteration1-Flowcharts-README.md` remains the place for **full-journey** diagrams; this file is the **functional diff** lens starting at **detailed setup**, as requested.
+  subgraph RDET["Route details mode control"]
+    RD2[Route details screen]
+    RD2 -->|Control Normal mode or Expand| NORM
+    RD2 -->|Remain in Shortcut contract| SHCUT
+  end
+
+  subgraph POLISH["Visual and interaction refinements"]
+    P1[Dark theme toggle Settings]
+    P2[Larger map on Home and planning previews]
+    P3[Time slider ticks read as ticks not fake buttons]
+    P4[Draggable pannable map where users expect]
+    P1 -.-> HM3
+    P2 -.-> HM3
+    P3 -.-> TM
+    P4 -.-> RD2
+  end
+
+  classDef paper fill:#E0E0E0,stroke:#424242,stroke-width:2px,color:#000
+  classDef iter1 fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#000
+  classDef post fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
+
+  class HM3,NORM,RD2 paper
+  class TM,SHCUT,P1,P2,P3,P4 post
+```
 
 ---
 
-*End. Align any “duplicate crossing toggle” row with your canonical Figma before submitting — treat this table as **comparison logic**, not a guarantee every duplicate exists in latest export.*
+## 5. Optional — **Mentor-style** hub (one page figure)
+
+*Colours: **green** only on night fork node `NC`; **blue** on `TM` if you want one slide that shows both eras.*
+
+```mermaid
+flowchart TB
+  ROOT([WalkWell Home hub])
+  ROOT --> ONB[Onboarding Welcome through profiles Save]
+  ROOT --> PREF[Preferences tab and Comfort summary edits]
+  ROOT --> SRCH[Search Saved Recent typeahead No results]
+  ROOT --> PLN[Plan Loading Route options Route details Start]
+  ROOT --> NAV[Navigate Breaks Reroute Arrived Alter prefs]
+  NC2{{Night context Iteration 1}}
+  NC2 -.-> PLN
+  NC2 -.-> NAV
+  TM2{{Normal vs Shortcut post study}}
+  TM2 -.-> PLN
+
+  classDef paper fill:#E0E0E0,stroke:#424242,stroke-width:2px,color:#000
+  classDef iter1 fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#000
+  classDef post fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
+  class ROOT,ONB,PREF,SRCH,PLN,NAV paper
+  class NC2 iter1
+  class TM2 post
+```
+
+---
+
+## 6. Figures / annotations (Figma / report)
+
+| Figure | Composite | Callouts |
+|--------|-----------|----------|
+| **F-baseline-strip** | Welcome → Choose setup → one profile → Home | Numbered **①–③** on **Save / Continue / Skip** only |
+| **F-night-options** | Route options **day vs night** same destination | **①** Night Comfort % **②** Lighting / Activity / Crossings chips **③** Day shade lead for contrast |
+| **F-night-why-three** | One route details night with **three** Why rows | **①** Better lighting **②** More active areas **③** Safer crossings — **separate** callout each |
+| **F-night-reroute** | Bottom sheet night vs day | **①** +minutes **②** Stay **③** Accept |
+| **F-post-mode** | **Normal** vs **Shortcut** from Home/search | **①** Mode picker **②** Skip list **③** Expand to full comparison |
+| **F-post-polish** | Light vs dark; small vs large map | **①** Dark theme **②** Map scale **③** Drag |
+
+---
+
+## 7. Pasteable report paragraph (timeline corrected)
+
+*The hand-drawn flows already defined the **closed-loop comfort walk**: profiles, search, multi-route comparison, transparency (“why”), navigation, optional comfort stops, explicit reroute trade-offs, arrival feedback, and preference adjustment. **Iteration 1** preserves that architecture but adds **diurnal context** so that, **after dark**, route presentation and explanations foreground **lighting**, **street activity**, and **safe crossings** rather than **shade-first** framing. **Usability testing** then motivated **Normal vs Shortcut** as two **planning contracts**, clearer **return to full comparison**, and **presentation fixes**: **dark UI**, **larger maps**, **honest slider affordances**, and **draggable maps**.*
+
+---
+
+## 8. Rendering Mermaid (GitHub-safe)
+
+- One ```mermaid block = one diagram starting with `flowchart` or `graph`.
+- In `class A,B,C stylename` always use **commas** between IDs.
+- If GitHub fails on complex graphs, paste into [mermaid.live](https://mermaid.live) and export **PNG**.
+
+---
+
+*End. Keep **green** claims aligned with **night context** only; keep **blue** aligned with **post-study** mode + polish.*
