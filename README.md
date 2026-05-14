@@ -1,339 +1,197 @@
-# WalkWell — **In-depth annotation guide** (lo-fi → hi-fi evolution)
+# WalkWell — Assessment report draft (scaffold for HD-level structure)
 
-Use this when building figures: **detail crops** from sketches, **matching zones** on hi-fi, **numbered leaders or arrows**, and **caption text** you can paste. Where sketches and hi-fi **match**, use **one line** in prose instead of a full figure.
-
-**Visual convention (suggested)**  
-- Tint or label lo-fi crops: **“Lo-fi”** / light **cream** background.  
-- Hi-fi: **“Hi-fi”** / white or **pale green** keyline.  
-- **Dashed arrow** = *information / IA moved* (same idea, different screen).  
-- **Solid arrow** = *direct control replacement* (slider → radios, toggles → more toggles).  
+*Paste sections into your Word template. Replace bracketed placeholders with your unit-specific details (unit code, ethics approval, real n, dates, citations).*
 
 ---
 
-## 1. Welcome
+## Introduction
 
-### Aspects that differ
+WalkWell is a **walking navigation** application that helps people plan pedestrian routes by balancing **safety**, **shade and heat exposure**, **how busy or quiet** a route feels, **rest and physical comfort** along the way, and **social and cultural** place preferences—so the journey feels **comfortable and considered**, not merely **fast**.
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Product identity** | “**Walkway**” (name drift). | **WalkWell** + unified **pin/tree/sun** mark. | Single **brand system**; less ambiguity about product. |
-| **Value before input** | Title + icon only; **no** explanation of *why* setup matters. | **Subtitle** (“safer and more comfortable routes”). | **Minimal help** at moment of commitment → reduces “what am I agreeing to?” |
-| **Feedforward** | None on welcome. | **Three chips**: Safety, Shade, Simpler routes (with **shield** motif). | User **previews categories** before tapping Set preferences (*feedforward* / *recognition*). |
-| **CTA hierarchy** | Two **similar-weight** stacked buttons (“Set Prefrence” / “Skip”) + **typo**. | **Solid primary** “Set preferences” + **text link** “Skip for now” + **correct spelling**. | **Error prevention** (trust); **visual hierarchy** guides happy path while preserving skip (*user control*). |
-| **Iconography** | Simple pin + tree doodle. | **Illustrated** pin with **day/night** colour split in logo vignette. | **Aesthetic-usability** + subtle cue that routing cares about **conditions**. |
+Users can **set preferences quickly or in detail**, **search** for a destination, **compare comfort-aware route options** with transparent trade-offs, and **follow turn-by-turn guidance**. They can **add comfort stops** during navigation and **accept or decline contextual reroute suggestions** when the environment offers a better match to their comfort profile (for example more shade along an alternative path).
 
-### Crops & annotations
-
-- **Crop A (lo-fi):** **Bottom half** — both buttons + “Welcome to Walkway!”.  
-- **Crop B (hi-fi):** **From logo down through Skip link** (include chips).  
-- **①** Arrow from lo-fi **button pair** to hi-fi **primary/secondary** pattern — *“Hierarchy + correction: primary commit vs low-friction deferral.”*  
-- **②** Arrow from **empty** content zone above buttons (lo-fi) to **subtitle + chips** (hi-fi) — *“Outcome + category preview added; reduces uncertainty.”*  
+This report describes the **system**, **design rationale**, **design evolution** from low-fidelity flows to the current high-fidelity prototype, and—where applicable—how **usability evaluation** informed refinements after structured testing.
 
 ---
 
-## 2. Onboarding structure (Step 1 + Step 2 sketches vs Welcome + Setup)
+## System description
 
-### Aspects that differ
+### Goals and target users
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Screen count before “depth choice”** | **Step 1** (Safer / Cooler / Simpler) **then** **Step 2** (Quick vs Detailed). | **Value** on **Welcome**; next screen is **Setup** (Quick vs Detailed only). | **Removes redundant step**: promises already **primed** on Welcome (*progressive disclosure* + fewer taps). |
-| **Progress chrome** | **Progress bar** advancing Step 1 → Step 2. | **Setup** title; **no misleading “step 2 of …”** bar for a removed step. | Avoids **false progress** if step count changed (*honest system status*). |
-| **Quick time claim** | Sketch: “**~2 mins**” quick path (in your corpus). | **~30 sec** badge. | **Expectation management** — overstated time hurts trust (*expectation violation*). |
-| **Detailed promise** | Short line “customize every aspect”. | **Enumerated scope** (safety, shade, accessibility, social comfort, route style) + **2–3 min**. | **Comparability** between cards (*decision quality*). |
-| **Reversibility** | Implied. | Explicit: “Preferences can change **at any time**.” | Lowers **fear of lock-in** (*error recovery* mindset). |
+WalkWell is aimed at **people who walk by choice or necessity** and care about **how** a route feels—not only **how long** it takes. That includes commuters and students, people sensitive to **heat or sun**, people who prefer **quieter or more populated** streets, and people who factor in **lighting, crossings, and amenity** when walking **later in the day**. The product goal is to make **comfort-aware routing legible and adjustable**, so users understand **why** a route is recommended and can **tune** the model without relearning the whole app each trip.
 
-### Crops & annotations
+### System capabilities
 
-- **Crop pair 1:** Lo-fi **Step 1** — only the **three large tiles** + Continue. Hi-fi: **Welcome** — **subtitle + three chips** (dashed arrow: *“Content relocated earlier in flow.”*).  
-- **Crop pair 2:** Lo-fi **Step 2** — **Quick** / **Detailed** cards only. Hi-fi: **Setup** — **two cards + badges + subline**.  
-- **③** Solid arrow: **~2 min** sketch affordance → **~30 sec** badge — *“Calibrated commitment for quick path.”*  
-- **④** Callout on hi-fi **Detailed** card **bullet list** — *“Explicit coverage vs vague ‘every aspect’.”*  
+- **Preference capture:** **Quick** path for essential choices and a **Detailed** path across multiple comfort dimensions, ending in a **profile summary** that can be **saved** and **revisited**.  
+- **Context at the hub:** **Home** surfacing **location**, **weather and UV**, and a **readable summary** of the active comfort profile.  
+- **Discovery and planning:** **Search** with **recents** and **saved** anchors, **suggestions**, **empty-state handling**, and **route calculation** with an explicit loading state.  
+- **Route intelligence (presentation):** **Multiple route alternatives** with **comfort scoring**, **time trade-offs**, and a **“Why this route?”** explanation tied to preferences.  
+- **In-trip support:** **Turn-by-turn** presentation, **comfort stop** selection with **clear impact on timing**, and **contextual reroute offers** with explicit costs and benefits.  
+- **Closing the loop:** **Post-trip feedback** and optional **preference adjustment** so short-term experience can refine long-term defaults.
 
----
+### Interactions
 
-## 3. Home / map hub
+At a high level, interactions follow a **closed loop**:
 
-### Aspects that differ
+**Onboard / configure → plan (search) → compare routes → start navigation → (optional) reroute or stops → arrive → reflect / adjust → return to hub.**
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Location control** | **“@current”** cryptic. | **“Your current location”** + **pin** icon. | **Recognition** over recall; clearer **origin** for routing. |
-| **Environmental context** | **Feels like 22°C / Low UV**. | Same + **“Clear”** (third state). | Slightly richer **status** for comfort decisions (*visibility of status*). |
-| **Defaults legibility** | **“Default Pref”** + **blank** pills + small scribble. | **Banner**: “Using default settings…” + **Personalise** link. | System **states what it’s optimising**; addresses *“why does this feel generic?”* |
-| **Comfort summary** | Unlabelled empty **chips**. | **Comfort Preferences** + **Shade / Safety / Crowd** with **High / Med / Low** + **icons** + **colour**. | **Signifiers + dual coding** (icon + text + level); **proximity** grouping in a card. |
-| **Global navigation** | Single hub (preference “widget” elsewhere in flows). | **Bottom nav**: Home / Saved / Preferences. | **Wayfinding** across tasks without hunting (*recognition*). |
-| **Map fidelity** | Schematic **intersections**. | **Realistic** map labels + green space + **pin**. | Supports **correct mental model** of navigation (*mapping* in Norman’s sense). |
+Within that loop, controls include **tappable cards and list rows**, **toggles** and **radio groups**, **sliders** (including time trade-off), **primary and secondary actions** (for example **Accept** vs **stay on route**), and **persistent navigation** between **Home**, **Saved**, and **Preferences**.
 
-### Crops & annotations
+### Functional overview diagram
 
-- **Crop lo-fi:** **Horizontal band**: WalkWell title + search + weather + **Default Pref block** (omit most of map **or** show **thin sliver** of map only if you discuss realism).  
-- **Crop hi-fi:** **Matching band** through Comfort Preferences card + **sliver of map** + **tabs**.  
-- **⑤** Arrow: blank pills → **named + coloured levels** — *“From placeholder to readable preference state.”*  
-- **⑥** Arrow: **@current** → **Your current location** pill — *“From shorthand to self-explanatory control.”*  
-- **⑦** Optional small inset: full-width **bottom nav** on hi-fi with note *“Persistent IA absent in single-screen sketch.”*  
+Include **one** diagram that shows the **main tasks** without micromanaging every screen. Recommended sources:
+
+- Baseline **paper / low-fi spine** (onboarding → home → search → routes → why → navigate → stops / reroute → feedback → alter prefs).  
+- Optional second strip: **night context** variants on **route options**, **why this route**, and **in-nav reroute** if that is part of Iteration 1 claims.
+
+If you use Mermaid, keep **colour legend** minimal (for example **grey = baseline**, **green = Iteration 1 contextual copy**, **blue = post-usability refinements**) and place the legend in the figure caption. *(You already have diagram blocks in `WalkWell-Iteration1-Flowcharts-README.md`—export to PNG for the Word document.)*
 
 ---
 
-## 4. Quick profile summary
+## Design rationale
 
-### Aspects that differ
+WalkWell’s interface choices aim to support **understandability**, **control**, and **trust** in an algorithmically assisted navigation product.
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Row semantics** | **Smudges** as value placeholders. | **Concrete subtitles** (“Safer streets”, “More shade”, “Up to 10 min”). | **Feedback** — user sees **what will affect routing**. |
-| **Structure** | Plain list + chevrons. | **Cards** + **icons** + **edit pencil**. | **Chunking** + stronger **affordance** for edit. |
-| **Actions** | Save + **Customize more**. | **Save profile** + **Customise more** (spelling may still vary AU/UK). | Preserve **escape to detailed** (*depth on demand*). |
+- **Visibility of system status:** Clear **defaults messaging**, **preference summaries**, and **explicit trade-offs** on routes and reroutes.  
+- **User control and freedom:** **Skip** paths, **non-linear profile editing**, and **decline** options on contextual reroutes.  
+- **Consistency and standards:** **Bottom navigation**, familiar **search** patterns, and **primary / secondary** button hierarchy.  
+- **Recognition rather than recall:** **Chips**, **icons with text**, and **plain-language** explanations in **Why this route**.  
+- **Error prevention and recovery:** **Disabled Find route** until input is usable; **no results** states with guidance; **back** navigation in multi-step setup.  
+- **Aesthetic and minimalist presentation:** **Card chunking** in setup and profiles; progressive disclosure from **Quick** to **Detailed**.  
+- **Comfort as multi-factor design:** Safety, thermal comfort, social density, amenities, and cultural factors are **separate levers** so users do not have to collapse incompatible needs into one implicit choice.
 
-### Crops & annotations
-
-- **Crop:** **Title + three rows + both buttons** (exclude blank header if redundant).  
-- **⑧** Leader to **smudge → subtitle text** — *“Abstract placeholder → explicit summary (“values on”).”*  
-
----
-
-## 5. Detailed profile summary
-
-### Aspects that differ
-
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Breadth** | **Six** categories (Crowd, Physical, **Cultral** typo). | **Six** polished rows (**Cultural / social** fixed) with **status phrases** (“3 preferences on”, “Lively area”). | Same **IA width**; **production copy** + **summary metrics** per bucket. |
-| **Edit pattern** | Chevron **>**. | **Pencil** on cards. | Same pattern, **clearer convention** for some users. |
-| **Primary action** | **Save**. | **Save profile**. | Consistent **commit** language. |
-
-### Crops & annotations
-
-- **Crop:** **Six-row block + Save** only.  
-- **⑨** Callout **Cultral** → **Cultural** — *“Content QA / professionalism.”*  
-- **⑩** Callout **“3 preferences on”** — *“Summary encodes *partial* configuration without opening each screen.”*  
+Where **night walking** is emphasised in Iteration 1, explanatory emphasis can shift toward **lighting**, **street activity**, and **crossings** when those dimensions better explain comfort **after dark**, while preserving the **same underlying preference model**.
 
 ---
 
-## 6. Quick setup — Safety & shade (combined step)
+## Design evolution
 
-### Aspects that differ
+The **initial low-fidelity prototype** defined a **six-dimension comfort model**—**safety**; **shade and heat**; **crowd-related comfort**; **rest and physical comfort**; **social and cultural** considerations; and **time trade-off**—and supported **editing the profile by factor** without forcing users to repeat the entire wizard each time.
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Progress model** | **“Step 3”** + **bar** (late in journey). | **Quick setup** + **2-step** **semantic stepper** (**Safety & Shade** → **Time**). | **Chunking** visible across *this* mini-wizard; **matches mental model** “two concerns then time.” |
-| **Safety input** | **Two lines** + hand-drawn **circles** (ambiguous multi vs single). | **Radio rows** with **clear selected** (green fill + check). | **Mutually exclusive** choices per line → **less interpretation error** (*error prevention*). |
-| **Heat / shade** | **Three shade options** in same screen as safety. | **Heat & Shade** card with **three radios** + borders by category. | **Same grouping**; hi-fi **separates sections** visually (cards, terracotta vs green). |
-| **Microcopy** | “Avoid poorly lit” vs hi-fi quick “**Avoid partly lit**” (if both exist). | Align or justify in report — **consistency** across quick vs detailed. |
+**Iteration one** of the ** high-fidelity prototype ** retained this architecture but **surfaced it more clearly**: a **labelled stepper** for detailed setup, **sharper safety copy** (including **safer crossings** as a **first-class** control), **richer shade options** (including an explicit **“no shade” / ignore** framing where appropriate), and a **wider time budget** on the **time trade-off** control (**up to about 50 minutes** on the slider) to align with multimodal route comparisons.
 
-### Crops & annotations
+One major change in the **detailed setup flow** was the move from a **continuous crowds / “liveliness” control** in the sketches to **four labelled options** in the high-fidelity design. The sketch pattern aimed to represent comfort as a **spectrum** along the quiet–lively axis (a useful research story for “avoid both extremes”). In hi-fi, **discrete categories** prioritise **fast, unambiguous commitment** on a small screen: users can **recognise** a whole-scene description (**Deserted / Quiet / Lively / Noisy**) without **interpolating** a thumb position. The trade-off is **reduced granularity** in the middle of the range. The team should state whether radios are a **deliberate simplification** validated by pilot feedback or a **placeholder** to revisit if granular control proves necessary.
 
-- **Crop lo-fi:** **Safety basics block** + **Shade preference block** + **Continue** (omit top bar **or** include **Step 3 + bar** as **second micro-crop** ⑪).  
-- **Crop hi-fi:** **Stepper** (thin strip) + **both cards** body.  
-- **⑪** **Second arrow:** lo-fi **filled/empty circles** → hi-fi **explicit radio selected state** — *“From ambiguous skeuomorphism to standard radio semantics.”*  
+Other notable evolution points (summarise visually in figures, not only here):
 
----
+- **Welcome and onboarding IA:** earlier **value communication** and **fewer redundant steps** before choosing Quick vs Detailed.  
+- **Home hub:** **readable default state**, **bottom navigation**, and **realistic map** presentation.  
+- **Reroute and stops:** **explicit minutes** (and sometimes **percentage-style cues**) plus **clear accept / stay** patterns.
 
-## 7. Quick setup — Time trade-off
+**(Feature table — paste into Word and expand rows as needed.)**
 
-*(Lo-fi: `quick - time.png`; Hi-fi: `time set up.png` or step 2 of quick in your Figma export.)*
-
-### Aspects that differ
-
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Range** | **Coarse** steps (e.g. 0 / +5 / +10 / +15 in sketch corpus). | **Slider 0–50** + **minute chips**. | Supports **wider** willingness aligned with **real route trade-offs** on cards. |
-| **Dual encoding** | Usually **one** control idiom. | **Slider + chips** — can add **cognitive cost** if chips look like **extra buttons** (document in evaluation if tested). | Trade-off: **precision** vs **affordance risk** — mention if you ran usability. |
-
-### Crops & annotations
-
-- **Crop:** **Slider + tick marks only** (lo-fi) vs **slider + 0–50 + chips** (hi-fi).  
-- **⑫** Arrow along axis: short range → long range — *“Model allows larger comfort–time budget.”*  
-- **⑬** (Optional critique) circle **chips** — *“May read as separate actions — visual weight should stay subordinate to slider.”*  
+| Feature area | Low-fi / sketch behaviour | Hi-fi Iteration 1 behaviour | User need addressed |
+|--------------|---------------------------|-----------------------------|---------------------|
+| Onboarding entry | Welcome; optional skip; separate “value” step in some flows | Welcome with chips and subtitle; streamlined path to Quick / Detailed | Trust; clarity before commitment; low drop-off |
+| Setup depth choice | Quick vs Detailed | Cards with time and scope badges | Honest effort estimate; informed choice |
+| Detailed progression | Stepwise dimensions | Labelled six-step stepper | Orientation; reduced feeling “lost” in setup |
+| Safety | Core toggles; crossings sometimes bundled | Four toggles; crossings explicit; night-relevant helper copy | Safer routing; legibility after dark |
+| Heat / shade | Few discrete levels | More options including ignore-shade framing | Flexibility; night vs day mental models |
+| Crowd / liveliness | Spectrum slider | Four radio categories | Speed of choice vs spectrum granularity |
+| Time trade-off | Coarse steps in sketches | Slider to ~50 min (+ minute marks) | Match real route trade-offs |
+| Profile hub | Per-factor return / save | Card summaries with edit affordances | Iterative tuning without replay |
+| Home | Search + weather + preferences strip | Same story + defaults banner + bottom nav | System status; global IA |
+| Search / routes | Compare comfort vs speed | Suggestions, empty state, cards, “Why” | Transparency; informed selection |
+| Navigation | Reroute with trade-off | Offers + post-accept feedback | Agency; informed switches |
+| Stops | Comfort spots | List with impact and ETA timeline | Predictability of detours |
+| Post-trip | Feedback; alter prefs | Structured options + sliders | Close learning loop |
 
 ---
 
-## 8. Detailed setup — Safety profile
+## Pre-user testing
 
-### Aspects that differ
+Before structured usability sessions, the prototypes were typically refined through:
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Toggle count** | **Three** (low light, isolation, people). | **Four** (+ **safer crossings**). | **Crossings** elevated to **first-class** preference — aligns with **“why route”** and **night safety** narrative. |
-| **Night copy** | “Avoid low light areas” (moon icon). | “**Prioritise … good lighting at night**” in **subtitle**. | **Contextual help** ties control to **after-dark** use. |
-| **Wizard chrome** | Single **Step 3** bar. | **Six-label stepper** (Safety → Time). | **Global progress** within detailed path — **orientation** (*reduce feeling lost*). |
-| **Microcopy detail** | Short lines. | **Longer helper** under each toggle (isolation, crossings…). | **Transparency** of routing consequences (*help users predict outcomes*). |
+- **Heuristic review** against common usability principles (status visibility, error handling, consistency, hierarchy).  
+- **Walkthroughs** with peers or supervisors on **task completeness** (can a user complete setup, plan a route, navigate, and finish without dead ends?).  
+- **Prototype fidelity checks** ensuring **copy**, **states** (loading, empty, success), and **flows** match the documented comfort model.
 
-### Crops & annotations
-
-- **Crop pair 1:** **Toggle column only** (lo-fi 3 vs hi-fi 4) — solid arrow between **third** and **fourth** row on hi-fi — *“New dimension: crossing quality.”*  
-- **Crop pair 2:** **Thin horizontal strip** lo-fi progress vs hi-fi **pin stepper** — *“Local step number → labelled multi-stage journey.”*  
-- **⑭** Callout hi-fi **night** phrase — *“Preference language linked to diurnal context.”*  
+Briefly list **what you actually did** (number of informal sessions, checklist review, etc.).
 
 ---
 
-## 9. Detailed setup — Heat & shade
+## Post-user testing
 
-### Aspects that differ
+Summarise **what changed after** usability evaluation. Typical themes (replace with **your** findings):
 
-| Aspect | Lo-fi sketch corpus | Hi-fi | Evolution story |
-|--------|---------------------|--------|-------------------|
-| **Option count** | Often **three** (low / balanced / max). | **Four radios** incl. **Fastest** and **No shade**. | Explicit **opt-out** of shade factor — useful when **shade is irrelevant** (e.g. night-led mental model). |
-| **Selection feedback** | Sketch marks. | **Green check** in selected radio, bordered cards. | Stronger **visibility of selected state**. |
+- **Visual design:** **dark mode** or contrast refinements for glare or evening use.  
+- **Map interaction and size:** larger preview, **pannable** map if users expected gestures.  
+- **Affordance clarifications:** controls that looked like independent buttons (for example **time “chips”**) restyled so they read as **scale marks** not extra actions.  
+- **Copy and discoverability:** clearer exits, labels, or onboarding hints if tasks failed or slowed.
 
-### Crops & annotations
-
-- **Crop:** **Radio cluster only** (lo-fi three options if you have that frame; else use **Heat & Shade hi-fi** vs **quick shade** for a different figure).  
-- **⑮** Arrow: 3-option mental model → **4th “No shade”** — *“Adds explicit ‘don’t weight shade’ state.”*  
+Use **short quantitative claims** only if grounded in your spreadsheet (for example “7/10 participants noticed X”).
 
 ---
 
-## 10. Detailed setup — Crowd comfort (**your example, expanded**)
+## Future changes
 
-### Aspects that differ
+Plausible directions (tailor to your roadmap):
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Control paradigm** | **Continuous slider** (“Quiet streets” ↔ “Lively areas”). | **Four discrete radios** (Deserted / Quiet / Lively / Noisy). | **Interaction cost**: slider needs **motor precision + interpretation**; **radios** are **one tap, one label** — often **lower momentary cognitive load** for *choice* (at cost of **granularity**). |
-| **Research alignment** | Margin notes: users dislike **both** empty **and** packed routes → **spectrum** models that **middle**. | Endpoints + **labels**; **middle** is **two** options (Quiet / Lively) not infinite positions. | Report should state: **simplification for mobile** vs **fidelity to spectrum rationale** — your **critical voice**. |
-| **Label strength** | “Quiet ↔ Lively”. | **“Deserted”** is **stronger** than “quiet empty” — semantic shift. | Risk: **too extreme** wording; benefit: **clear imagery** of foot traffic. |
-| **Terminology later** | “Crowd” in model. | Night **route** UI may stress **activity** elsewhere — **coherence** task for report. |
-
-### Crops & annotations (exactly your style)
-
-- **Lo-fi crop:** **Only the slider track + thumbs + end labels** from `Detailed - crowd comfort.png` (plus tiny “Crowd” title if needed). Label image corner: **“Lo-fi — spectrum control”**.  
-- **Hi-fi crop:** **Only the four radio cards** from `Crowd Comfort.png`; **hide** unrelated chrome. Label: **“Hi-fi — discrete choice”**.  
-- **Arrow A (thick):** from **slider thumb area** to **selected radio** — caption: *“Control evolution: continuous → categorical.”*  
-- **Arrow B (optional dashed):** from **slider midpoint concept** to **Quiet + Lively** pair — *“Intermediate behaviour mapped to adjacent buckets.”*  
-- **Annotation bubble ①:** *“Sketch: **high intrinsic load** — user must translate position → policy. Hi-fi: **reduced exec. load** — read label, tap once.”*  
-- **Annotation bubble ②:** *“Trade-off: **less expressive** than a spectrum; **middle** preferences require **nearest radio**.”*  
-- **Annotation bubble ③ (critical):** *“If research validated **slider**, radios are a **deliberate IA simplification** — state explicitly.”*  
+- **Stronger personalisation** from repeated trips (weighting feedback without overfitting one bad day).  
+- **Richer accessibility** (motor, vision, cognitive) and **localisation**.  
+- **Data realism** tied to Australian pedestrian and amenity datasets where appropriate for assessment scope.  
+- **Further night / diurnal** presentation rules co-designed with target users.  
+- **Resolving** any known **content QA** issues (duplicate headings, placeholder strings).
 
 ---
 
-## 11. Detailed setup — Rest & physical comfort
+## Usability evaluation
 
-### Aspects that differ
+### Study design
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Control** | **Independent toggles** (benches, fountain, flat, crossings in some sketches). | **Four toggles**; **crossings** may also appear under **Safety** in hi-fi — **check canonical Figma** for duplication. | If duplicated: **IA risk** (same construct two places); if split: **justify** (physical amenity vs crossing safety). |
-| **Helper copy** | Sketch implies outcome. | Repeated line “Rest stops will be added…” on all rows in some mocks. | **Low differentiation** between toggles in copy — **content debt**; annotate as **polish** if still true. |
+State whether the study was **within-subjects** or **between-subjects**, **moderated** or **unmoderated**, **remote** or **lab**, and what **prototype medium** was used (Figma prototype, device, etc.).
 
-### Crops & annotations
+### Participants and recruitment
 
-- **Crop:** **Four toggle rows** only.  
-- **⑯** If hi-fi **crossings** here **and** under Safety: **bracket** both with note *“Potential duplicate preference — harmonise weights in routing model.”*  
+Target **n** (for example 8–12 for coursework), **inclusion criteria** (walks regularly, age range, access to device), **recruitment channel** (class pool, friends-and-family with limits), and **diversity** notes appropriate to ethics.
 
----
+### Tasks
 
-## 12. Detailed setup — Social & cultural comfort
+List **3–6 scenario tasks**, for example:
 
-### Aspects that differ
+1. Complete **Quick** setup and save.  
+2. Adjust one **Detailed** dimension from the profile and return.  
+3. Search a destination and **compare** routes using **Why this route**.  
+4. **Accept** a reroute offer (or decline).  
+5. Add a **comfort stop** and confirm timing impact.  
+6. Complete **post-trip** feedback.
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Options** | Shopping, religious/community, familiar, active streets. | **24/7 store**, **active community streets**, **familiar**, **religious centres** — **semantic shift** toward **always-on** amenity. | Ties to **safety after dark** / services; may **drop pure “shopping”** framing. |
-| **Header copy** | Own question. | Some frames reuse **“Where you want to take rest?”** — **wrong subtitle**. | **Trust / credibility** bug — annotate *“Placeholder error; fix or acknowledge.”* |
+Include **success criteria** (what counts as task success).
 
-### Crops & annotations
+### Data collected
 
-- **Crop:** **Title + four toggles**.  
-- **⑰** Callout **wrong subtitle** with **red leader** — *“Content QA failure — breaks category sense-making.”*  
+Examples: **task completion**, **time on task**, **error counts**, **SUS or RAW-NASA** (if used), **think-aloud themes**, **short debrief questions**.
 
----
+### Method
 
-## 13. Detailed setup — Time (detailed path)
+Describe **sessions** (length), **scripting**, **note-taking**, and how **videos** or **logs** were stored (**de-identification**).
 
-### Aspects that differ
+### Ethical considerations
 
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Termination** | Continue → profile. | **Finish** on last **stepper** step — **clear terminal action**. | **Closure** signal in wizard (*consistency*). |
-| **Control** | List radios in some sketches. | **Slider + chips** (same family as quick). | **Range** again; same **chip affordance** note. |
+Consent, voluntary participation, withdrawal, privacy of recordings, storage duration, minimal personal data, **risk** language suitable for coursework (reference **HREC** only if actually approved).
 
-### Crops: **timeline / stepper “Time” pin + slider**
+### How findings informed the final iteration
+
+Cross-link **each major finding** to a **visible UI change** (map, dark theme, slider styling, copy). If a finding did **not** change the UI (time/budget), say so honestly.
 
 ---
 
-## 14. Internal hi-fi evolution (if you show Figma **two rows**)
+## Conclusion
 
-Some composites show **Save-per-screen** iteration vs **stepper + Continue** iteration.
+WalkWell addresses a **real gap** in consumer navigation: routes are rarely explained in terms of **pedestrian comfort** across **multiple dimensions**. The **low-fidelity** work established a credible **six-factor** model and **closed-loop** journey (configure → plan → explain → navigate → reflect). **Iteration one** translated that model into a **coherent visual system** with **clearer status**, **stronger onboarding**, and **more explicit trade-offs** on routes and reroutes. **Usability evaluation** sharpened **affordances** and **presentation** where prototype testing revealed mismatches with user expectations.
 
-### Aspects to annotate
-
-| Aspect | Earlier | Later | Evolution story |
-|--------|---------|--------|-------------------|
-| **Flow grammar** | **Save** = “edit one dimension”. | **Continue** = “guided journey”. | **Onboarding** vs **settings** mental model — stepper suits **first-time** completion. |
-| **Back** | Not emphasised. | **Chevron** back on each step. | **Error recovery** / revisiting choices. |
-
-**Crop:** **Top-left back + Save** vs **Back + Continue + stepper** — small comparative strip.
+Limitations include **prototype fidelity**, **sample size**, and **simulated routing data** in a student project context. Future work should **tie claims to evaluation evidence** and extend **accessibility** and **real-world data** proportionate to deployment goals.
 
 ---
 
-## 15. Search → routes → “Why”
+## Minor edits to your evolution paragraph (grammar / flow)
 
-*(If screenshots in a later figure.)*
+You can replace your draft with:
 
-### Aspects that differ from generic sketch PDF
+*The initial low-fidelity prototype defined a six-dimension comfort model—safety; shade and heat; crowd-related comfort; rest and physical comfort; social and cultural considerations; and time trade-off—and allowed the profile to be edited per factor without repeating every step. Iteration one of the high-fidelity prototype preserved this architecture but presented it more clearly through an appealing labelled stepper, sharper safety copy (including safer crossings as a first-class control), richer shade options (including an explicit “ignore shade” framing), and a wider time trade-off range (up to about fifty minutes) via the slider.*
 
-| Aspect | Lo-fi intent (PDF/corpus) | Hi-fi | Evolution story |
-|--------|-------------------------|--------|-------------------|
-| **Search** | Primary field; recents; filter; no dead ends. | **Saved** + **Recents** + **typeahead** + **inactive Find** until valid. | **Guardrails** before route calc. |
-| **Suggestion richness** | “Quick destination”. | **Subline**: time + “mostly shaded” etc. | **Feedforward** of **comfort-relevant** outcome. |
-| **Route cards** | Comfort vs efficiency. | **Comfort %**, **trade-off minutes**, **multiple alts**. | **Comparable** alternatives on one surface. |
-| **Why** | Links to profile. | **Three explainers** + **High/Low** tags. | **Transparency** of recommender. |
-| **Night iteration** | Not on static sketch. | **Lighting / activity / crossings** lead; **Night comfort** labels. | **Diurnal** reframing — **pair** with day in a **separate** night figure. |
-
-### Crops: **search bar + one suggestion row**; **one route card expanded**; **Why block** only.
+*A major detailed-setup change was replacing sketch crowd comfort expressed as a continuous spectrum with four predefined options. While the slider supported a middle-ground story for people who dislike both emptiness and crowding, discrete categories prioritise fast, unambiguous choice on mobile at the cost of granularity. The design rationale should state whether this simplification was intentional pending testing or an open point for refinement.*
 
 ---
 
-## 16. Navigation — reroute / shade banner
-
-### Aspects that differ
-
-| Aspect | Lo-fi (PDF) | Hi-fi | Evolution story |
-|--------|-------------|--------|-------------------|
-| **Offer** | +minutes, Stay / Take. | +minutes + **% Shade** (or similar). | **Stronger evidence** for accept decision. |
-| **Post-accept** | “shade prioritised”. | **Persistent banner** on map. | **Feedback** loop — user knows **active policy**. |
-
-### Crops: **suggestion card only** + **banner strip**.
-
----
-
-## 17. Take a break (comfort stops)
-
-### Aspects that differ
-
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **List metadata** | Shorter. | **+min**, **tags** (shaded, indoor, water). | **Scannability** for trade-offs. |
-| **Route impact** | Less explicit. | **Route change** **ETA bullets**. | **Consequence visibility** before commit. |
-
-### Crops: **one list item** + **Route change** block.
-
----
-
-## 18. Arrived → feedback → alter preferences
-
-### Aspects that differ
-
-| Aspect | Lo-fi | Hi-fi | Evolution story |
-|--------|--------|--------|-------------------|
-| **Feedback** | Optional, loose. | **Radio set** (too hot, crowded, unsafe, good). | **Structured** trip quality; watch **night** vs **too hot** coherence. |
-| **Alter prefs** | Suggested from route choices. | **Sun exposure** + **crowd** sliders. | **Bridge** trip → **global** model; align with **activity** language in night copy if claimed. |
-
-### Crops: **feedback radios** + **alter** sliders only.
-
----
-
-## Suggested figure split (so nothing is bloated)
-
-| Figure | Content |
-|--------|---------|
-| **Fig A** | Welcome + onboarding IA + Home band (§1–3). |
-| **Fig B** | Quick vs detailed **profiles** + quick combined step (§4–6). |
-| **Fig C** | **Crowd slider vs radios** + safety toggles + time (§8–10, §13). |
-| **Fig D** | Rest + Social + QA subtitle (§11–12). |
-| **Fig E** | Search / routes / why (+ night if needed) (§15). |
-| **Fig F** | Nav reroute + breaks + post-trip (§16–18). |
-
----
-
-*Path: save alongside your zips; adjust file names if your exports differ slightly.*
+*End scaffold. Trim subsections if your page limit requires; keep figures and one usability table over long unfounded claims.*
