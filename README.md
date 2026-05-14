@@ -1,276 +1,315 @@
-# WalkWell — **Low-fi prototype (PDF) vs hi-fi screens**: full comparison report
-
-**Purpose:** Document **what changed** from the **seven-page annotated low-fi** (`WalkWell Prototype.pdf`, *Downloads*) to the **current hi-fi** mobile screens (your exported image sets), **why** those changes support usability and Iteration 1 goals, and **exactly** what to annotate on figures for assessment.
+# WalkWell — **Low-fi prototype (PDF) vs hi-fi screens**: iteration report
 
 **Sources**
 
-| Source | Role |
-|--------|------|
-| **Low-fi** | `c:\Users\asusn\Downloads\WalkWell Prototype.pdf` — **7 pages** of **hand-drawn flow fragments + margin annotations** (routing, onboarding, preferences, search, post-trip). Text extraction preserves wording; spacing reflects PDF encoding. |
-| **Hi-fi** | Composite exports including: setup/home strips, **detailed setup** (wizard + category editors), **search → loading → route options → route details**, **navigation → breaks → reroute → arrival → alter prefs**. Asset examples: `...\assets\...image-7f46534a....png`, `...image-a25d3d53....png`, `...image-1df20229....png`, `...image-705f0d9d....png`. |
+- **Low-fi (baseline):** `c:\Users\asusn\Downloads\WalkWell Prototype.pdf` — **7 pages** of hand-drawn **user flows + marginal research rationale** (comfort vs efficiency, cognitive load, safety %, heat as pain point, crowd spectrum, feedback loop, etc.).
+- **Hi-fi (Iteration 1):** composite exports (see **§0.2**). These are **production-style** WalkWell frames: onboarding, **two variants of detailed setup** (see §4.3), home → search → routes → navigation → breaks → post-trip.
 
-**How to read this report:** Use **numbered figure callouts ①–⑤** in exports; use **tables** for scanability; use **Mermaid** in Word/GitHub via [mermaid.live](https://mermaid.live) → PNG if needed.
+**How to read this document**
 
----
-
-## 1. Executive summary
-
-The **PDF low-fi** already specified a **closed-loop comfort walk**: **skip-friendly onboarding**, **quick vs detailed** preference capture, **spectrum-based crowd** thinking, **separate time-trade-off** thinking, **profile summary + per-category edit without replaying the wizard**, **search with familiarity and empty-state recovery**, **comfort-weighted route comparison**, **“why this route” transparency**, **active navigation** with **environment-triggered reroute** (+ explicit minutes, **stay / take**), **optional comfort stops**, and **post-arrival feedback** feeding **preference adjustment**.  
-
-The **hi-fi** **preserves that architecture** and **materialises** it as a **product**: **WalkWell** branding, **typed components**, **stepped detailed setup** with a **six-icon progress bar**, **quick two-step path** with optional **Save / Continue / Finish** variants, **readable defaults** on **Home** (banner + **Comfort Preferences** chips), **bottom navigation** (**Home / Saved / Preferences**), **typeahead search** with **saved + recent**, **loading state**, **multi-card route options** with **comfort %** and **trade-off minutes**, **route details** with **“Why this route?”** rows, **turn-by-turn** nav with **+ Add stop**, **detour picker** with **ETA breakdown**, **proactive reroute sheet** (e.g. **more shaded** + minutes), **arrival feedback**, and **alter preferences** with **sliders**.  
-
-**Iteration 1–relevant deltas** (from your project framing):  
-
-1. **Night / safety language** is **embedded in preferences** (e.g. **“good lighting at night”** on the safety toggle) and can be **extended on route screens** with **lighting / activity / crossings**-led “why” copy (your **day vs night** frames).  
-2. **Terminology tension:** profile and route UI still say **“Crowd”** in places while **safety** copy uses **“people nearby”** / busier streets — your **activity** vocabulary should land **consistently** on **night** and **“why route”** surfaces.  
-3. **Known hi-fi content/affordance gaps** vs aspirations: **placeholder** subtitle on **Social & Cultural**; **minute “chips”** on time slider can read as **separate buttons**; some labels **“SAFETY PROFILE”** on search crops are **artifact**, not user-facing IA.
+- **§1–7** map **PDF page themes → concrete hi-fi surfaces** and list **deltas** point-by-point.
+- **Diagrams** use **colour classes:** **tan = low-fi / sketch intent**, **green = hi-fi implemented**, **blue = intentional change or new capability** (not “random polish”).
+- **Annotations** are **numbered figure callouts** (① ② ③ …). Prefer **one composite figure + 3–6 callouts** per topic; avoid duplicating the same idea in a table.
 
 ---
 
-## 2. What the **PDF** contains (page-by-page map)
+## 0.2 Hi-fi image assets (paste into report as figures)
 
-Use this to **cite low-fi evidence** in-text (*Page n*).
-
-| PDF page | Topics (extracted intent) | Hi-fi chapter it maps to |
-|----------|---------------------------|---------------------------|
-| **1** | **Route selection → navigate**; **environmental improvement** along path; **non-intrusive** offer; **explicit trade-off** (e.g. **+3 min**); **stay** vs **take** new route; **shade prioritised** feedback; **auto brightness** for glare; **comfort-relevant landmarks**; **high-contrast** route; **end navigation**. | **In-navigation** + **reroute** |
-| **2** | **Comfort spots** suggested; **resume** nav; **dropdown** instructions; **arrival → feedback** (**optional**); **finish → alter preferences** suggested from **route change decisions**; **save** if altered; **continue → home**. | **Comfort stops** + **post-trip** |
-| **3** | **Skippable** onboarding (**fast entry**, **drop-off** prevention); **defaults** + **later personalisation**; **trust** before heavy input; **continue → choose** quick vs detailed; **effort control**, **cognitive load**; **preference widget** from **home**. | **Welcome** + **choose setup** + **Home** |
-| **4** | **Safety** high priority (**~29.3%** theme); **heat** as top pain → **sun exposure** control; **crowd**: users dislike **both** heavy crowding **and** emptiness → **spectrum** (not only buckets); **rest** makes walking **manageable**; **social/cultural** comfort + **identity-based** risk; **routes lacking** selected features → **lower suitability**; **toggles** independent; **sliders** reduce load; **save** returns to **profile** without replaying all steps. | **Detailed / profile** model |
-| **5** | **Group** high-priority factors; **fewer screens**; **checkbox-style** quick multiselect; **separate** screen for **route flexibility** / time trade-off (**cognitive load**); quick profile shows **only configured** prefs; **editable**. | **Quick path** + **time** step |
-| **6** | **Home** hub: **Quick setup?** diamond; **quick** profile shows configured prefs only; **customise more → detailed**; **save → home**; **edit** drills into **related** screen; **detailed** summary of **all** features; same **save → profile** loop. | **Home** + **profile hub** |
-| **7** | **Comfort vs efficiency** comparison; **weighted comfort** ranking; **Find Route** + **suggestion**; **loading**; **familiarity** navigation; **dynamic filter**; **no dead-end**; **why route** transparency linked to **profile**; can **return** to routes; **simple layout**. | **Search → routes → why** |
+| # | File (full path) | What it shows |
+|---|------------------|----------------|
+| F1 | `C:\Users\asusn\.cursor\projects\c-Users-asusn-Documents\assets\c__Users_asusn_AppData_Roaming_Cursor_User_workspaceStorage_8233c5d5eab9afe657929928156f1fa1_images_image-7f46534a-fe1f-4b03-9638-2095ea351e40.png` | **Onboarding + home + profiles + quick + detailed safety** strip |
+| F2 | `C:\Users\asusn\.cursor\projects\c-Users-asusn-Documents\assets\c__Users_asusn_AppData_Roaming_Cursor_User_workspaceStorage_8233c5d5eab9afe657929928156f1fa1_images_image-a25d3d53-e5e7-4bd2-ae0c-88086215e424.png` | **Ten screens: two rows** — “Save per category” iteration vs **six-step stepper + Safety Profile** |
+| F3 | `C:\Users\asusn\.cursor\projects\c-Users-asusn-Documents\assets\c__Users_asusn_AppData_Roaming_Cursor_User_workspaceStorage_8233c5d5eab9afe657929928156f1fa1_images_image-1df20229-a44b-413b-9f6f-a3523866b4cf.png` | **Time / Finish**, **home**, **search**, **loading**, **route options**, **route details / Why** |
+| F4 | `C:\Users\asusn\.cursor\projects\c-Users-asusn-Documents\assets\c__Users_asusn_AppData_Roaming_Cursor_User_workspaceStorage_8233c5d5eab9afe657929928156f1fa1_images_image-705f0d9d-952d-4ca1-9962-8f5ac8455d9f.png` | **Navigate**, **shaded reroute**, **take a break**, **arrived**, **alter prefs** |
 
 ---
 
-## 3. **Figure plan** (what to export + **exact annotations**)
+## 0.3 Master legend — colour coding in Mermaid (paste `classDef` with each chart)
 
-Build **one composite per row**; limit to **five callouts** per figure in the caption; put overflow detail in body text.
+```text
+classDef lowfi fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#000
+classDef hifi fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
+classDef delta fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#000
+```
 
-### Figure F1 — **Onboarding & home shell** (low-fi p.3, p.6, p.7 → hi-fi top strip)
-
-| Callout | Low-fi (PDF) | Hi-fi | One-line annotation |
-|--------|----------------|-------|---------------------|
-| **①** | **Skip** + **defaults** + **widget → setup** | Welcome **Skip for now** + Home **defaults banner** + prefs entry | **Friction reduction** + visible **system state** |
-| **②** | **Trust before input** / value preamble | Welcome **subtitle** + **Safety / Shade / Simpler** chips | **Feedforward** before commitment |
-| **③** | **Quick vs detailed** effort choice | **Choose setup** cards with **~30 s** / **2–3 min** | **Expectation management** |
-| **④** | **Home** as planning hub | **WalkWell** brand, **location**, **Where to?**, **weather**, **Comfort Preferences** chips, **map**, **bottom nav** | **Recognition** + **IA** |
-| **⑤** | (p.7) **simple layout** | Polished **type**, **spacing**, **components** | **Aesthetic–usability** + readability |
-
-### Figure F2 — **Preference model: quick vs detailed** (low-fi p.4–6 → hi-fi quick + detailed strips)
-
-| Callout | Low-fi | Hi-fi | Annotation |
-|--------|--------|-------|------------|
-| **①** | **Safety first** + **29.3%** rationale | Detailed **Safety** toggles incl. **lighting at night**, **people nearby**, **crossings** | **Same construct**, **explicit crossings** + **night-ready** copy |
-| **②** | **Heat** top pain | **Heat & Shade** radios incl. **No shade** | **Finer control** + optional **ignore shade** |
-| **③** | **Crowd spectrum** (avoid both extremes) | **Crowd Comfort** as **radio bins** | **UI representation shift** (spectrum → discrete) |
-| **④** | **Separate time / route flexibility** | Detailed **Time** step **0–50** + quick time **slider**; wizard **Finish** | **Dedicated cognitive step** preserved; **range widened** |
-| **⑤** | **Profile summary** + **edit saves back** | Detailed / Quick **profile** rows + **Save** + **Customise more** | **Non-linear** tuning |
-
-### Figure F3 — **Detailed wizard chrome** (hi-fi only — PDF implied steps not drawn as six-icon stepper)
-
-| Callout | Low-fi | Hi-fi | Annotation |
-|--------|--------|-------|------------|
-| **①** | Step progress **described**, not standardised | **Six-icon** stepper (**Safety → Time**) | **Visibility of progress** |
-| **②** | Per-category **full** flow | **Continue** chain + **category editors** with **Save** (top row) | **Two access patterns**: wizard vs direct edit |
-| **③** | **Social** as contextual comfort | **Social & Cultural** toggles; **subtitle bug** | **Flag QA** (wrong reused heading) |
-| **④** | **Rest** manageability | **Rest & Physical** toggles; watch **duplicate** “crossings” vs **Safety** | **IA consistency** check |
-| **⑤** | N/A | **Time** slider **ticks** | **Affordance** risk (**post-test** polish) |
-
-### Figure F4 — **Search → plan → explain** (low-fi p.7 → hi-fi search row)
-
-| Callout | Low-fi | Hi-fi | Annotation |
-|--------|--------|-------|------------|
-| **①** | **Primary interaction** search | **Where to?** + **saved** + **recent** | **Recognition** over free recall |
-| **②** | **Dynamic filtering** | Typeahead **“N” → Nor…** + suggestion meta | **Efficiency** |
-| **③** | **No dead-end** | **No results** state | **Error recovery** |
-| **④** | **Loading** | **CALCULATING your route** | **System status** |
-| **⑤** | **Comfort vs efficiency** | **Route cards** + **% Comfort** + **trade-off** + tags | **Weighted model** made **visible** |
-
-### Figure F5 — **“Why this route?”** (low-fi p.7 transparency → hi-fi route details)
-
-| Callout | Low-fi | Hi-fi (day frame) | Annotation |
-|--------|--------|-------------------|------------|
-| **①** | **Links to profile** | Row **Safe and accessible** (lighting + crossings) | **Traceability** pref → explanation |
-| **②** | **Shade / sun** | **Shaded routes** row | **Environmental** fit |
-| **③** | **Crowd** construct | **Low crowd areas** | Rename to **activity** on **night** variant per your spec |
-| **④** | **Return to routes** | (Implied **back** in prototype) | **Comparability** |
-| **⑤** | **Confirm selection** | **Start navigation** | **Commit** action |
-
-### Figure F6 — **In-navigation & reroute** (low-fi p.1 → hi-fi nav + sheet)
-
-| Callout | Low-fi | Hi-fi | Annotation |
-|--------|--------|-------|------------|
-| **①** | **Comfort path detected** | **A more shaded route is available** + **Time +x** + **Shade +%** | **Explicit trade-off** |
-| **②** | **Non-intrusive** | **Accept** vs **Stay** (secondary) | **User control** |
-| **③** | **Route updated** / shade prioritised | Banner **Taking shaded route… +3 min** | **Persistent state** feedback |
-| **④** | **Landmarks** | Turn card **Central Park** etc. | **Orientation** |
-| **⑤** | **Glare / auto brightness** (low-fi) | *(If not in hi-fi frame set)* — note **gap** or **post-study** | **Honesty** in report |
-
-### Figure F7 — **Comfort stops** (low-fi p.2 → hi-fi take a break)
-
-| Callout | Low-fi | Hi-fi | Annotation |
-|--------|--------|-------|------------|
-| **①** | **Context-aware spots** | **Bench / store / bathroom / fountain** + tags (**shaded**, **indoor**, **water**) | **Utility** + comfort metadata |
-| **②** | **Multi-stop** | **Selected** + **checkmarks** | **Planning** |
-| **③** | **ETA breakdown** | **Detour** + **arrival times** sequence | **Predictability** |
-| **④** | **Resume** | **Continue** | **Return** to nav |
-| **⑤** | N/A | **24/7 store** | **Night-relevant amenity** |
-
-### Figure F8 — **Post-trip** (low-fi p.2 → hi-fi arrival + alter prefs)
-
-| Callout | Low-fi | Hi-fi | Annotation |
-|--------|--------|-------|------------|
-| **①** | **Optional** comfort capture | **How was your route?** radios | **Lightweight** feedback |
-| **②** | **Too hot / crowding / unsafe** analogues | **Too hot**, **Too crowded**, **Felt unsafe**, **Good** | Map **night** to **lighting** if you adjust |
-| **③** | **Suggestions from route decisions** | **Alter preferences?** sun + **crowd** sliders | Tie to **accepted reroute** story |
-| **④** | **Save** | **Done** | **Closes loop** to prefs |
-| **⑤** | **Continue → home** | (Flow to **Home**) | **Task completion** |
+- **lowfi** — behaviour or structure **stated in the PDF** (or clearly implied by sketch annotations).
+- **hifi** — **visible in hi-fi** composites.
+- **delta** — **material change** (new step, new control type, new chrome, copy/system behaviour).
 
 ---
 
-## 4. **Functional comparison tables** (low-fi intent → hi-fi implementation)
+# 1. PDF page ≈ theme 1 — **Active route, reroute, environmental response**
 
-### 4.1 Onboarding & IA
+**Low-fi intent (PDF p.1 excerpts):** route selection leads to **high-contrast** active route; **contextual “more comfortable path”** with **explicit +3 min** trade-off; **Stay** vs **Take**; optional **auto brightness** for glare; **shade prioritised** after accept; **non-intrusive** switching; **comfort-relevant landmarks**.
 
-| Aspect | Low-fi (PDF) | Hi-fi | Δ / rationale |
-|--------|--------------|-------|----------------|
-| **First run** | **Skippable**; **defaults** acceptable | **Skip** + Home **“using default settings…”** | **Same strategy**, **explicit feedback** on Home |
-| **Trust** | Notes **pre-input** trust | Welcome **outcome-led** copy | Aligns with **help & documentation** (minimal) |
-| **Path choice** | **Quick vs detailed** cognitive **effort** control | Cards + **time badges** | **Honest costing** of paths |
-| **Global nav** | **Home** as hub; **widget** to prefs | **Bottom nav** + prefs shortcut | **Stronger wayfinding** |
+**Hi-fi (F4):** map-led navigation, **+ Add stop**, bottom instruction card; **“A more shaded route is available”** with **+3 min** and **+38% Shade**; **Accept** / stay path; top/banner **“Taking shaded route…”** after acceptance.
 
-### 4.2 Preference dimensions
+### 1.1 Feature-by-feature
 
-| Dimension | Low-fi emphasis | Hi-fi pattern | Notes |
-|-----------|-----------------|---------------|--------|
-| **Safety** | **First-class**; **~29.3%** | **Toggles**; **night lighting** string; **crossings** | **Crossings** elevated vs some sketch placements |
-| **Heat** | **Top pain** | **Radios** incl. **fastest / none** | User control over **sun model** |
-| **Crowd** | **Spectrum** (avoid **both** extremes) | **Four radios** | **Largest representation change** — justify **clarity vs fidelity** |
-| **Rest** | **Manageability** | **Toggles**; generic helper text in some mocks | Tighten **copy** if still placeholder |
-| **Social/Cultural** | **Identity / context** | **Toggles** + **24/7** amenity | Good for **night safety** framing; **fix subtitle** |
-| **Time** | **Dedicated** decision; **iterative** | **Slider 0–50** + **Finish** | Matches **wider** route trade-offs |
+| Aspect | Low-fi (PDF) | Hi-fi | Δ |
+|--------|----------------|-------|---|
+| **Reroute trigger** | Environmental improvement along nearby paths (annotation). | **Shade**-led suggestion card on map. | **Same story, hi-fi specifies dimension** (shade %) |
+| **Trade-off honesty** | Explicit minutes (+3 min). | Same pattern + **percent shade delta**. | **More legible consequence** |
+| **User agency** | Non-intrusive; user choice. | Primary **accept** + secondary **stay/dismiss** pattern. | **Aligned** |
+| **Post-change feedback** | “route updated, shade prioritised.” | **Banner** confirming **shaded** route + time cost. | **Stronger confirmation** |
+| **Brightness** | Auto-adjust for outdoor visibility (annotation). | **Not evidenced** in described hi-fi strip. | **Gap or later iteration** — state honestly in report |
+| **Landmarks** | Highlight comfort-relevant landmarks. | Turn card references **Central Park** style landmark in described frames. | **Partial** |
 
-### 4.3 Discovery & planning
-
-| Aspect | Low-fi | Hi-fi | Rationale |
-|--------|--------|-------|-----------|
-| **Search** | **Familiarity**, **filter**, **no dead end** | Saved / recent / typeahead / empty | **Error prevention** + **efficiency** |
-| **Ranking** | **Weighted comfort** | **% Comfort** on cards | **Model surfaced** |
-| **Transparency** | **Why** linked to **profile** | **Why this route?** list | **Predictability** |
-| **Commit** | **Confirm** selection | **Start navigation** | Clear **primary** action |
-
-### 4.4 Runtime & after trip
-
-| Aspect | Low-fi | Hi-fi | Rationale |
-|--------|--------|-------|-----------|
-| **Reroute** | **Environmental** trigger; **+minutes**; **stay** | Sheet + chips | **User sovereignty** |
-| **Stops** | **Comfort spots** | **Break** list + **ETA** changes | **Planning** support |
-| **Feedback** | **Optional** | Post-arrival form | Same role; keep **low burden** |
-| **Alter prefs** | From **route change** context | **Sliders** + **Done** | **Closed loop** |
-| **Brightness** | **Auto-adjust** (p.1) | *(Often not in same figma row)* | Call **gap** or **future** honestly |
+**Figure annotation — use F4, callouts:**  
+① **Explicit minute cost** on suggestion (principle: *error prevention / informed consent*).  
+② **Percent shade gain** (principle: *visibility of system status*).  
+③ **Persistent banner** after accept (principle: *feedback*).  
+④ (If discussing PDF honesty) **note gap** if auto-brightness not in hi-fi.
 
 ---
 
-## 5. **Mermaid diagrams** (paste as single blocks)
+# 2. PDF theme 2 — **Comfort stops, arrival, feedback, alter preferences**
 
-### 5.1 End-to-end spine (low-fi → hi-fi parity)
+**Low-fi (PDF p.2):** context-aware **comfort spots**; **pause / resume**; optional **user-reported comfort**; **Finish → Alter preferences**; suggested tweaks **based on route change decisions**; **Save** loops back toward home.
+
+**Hi-fi (F4):** **Take a break** list with **Add Break**, **Selected** state, **Route change** timeline with ETAs; **You arrived** + radios (**Too hot**, **Too crowded**, **Felt unsafe**, **Good**); **Alter preferences** with **Sun exposure** + **Crowd levels** sliders.
+
+### 2.1 Feature-by-feature
+
+| Aspect | Low-fi (PDF) | Hi-fi | Δ |
+|--------|----------------|-------|---|
+| **Stops** | Suggested spots; resume. | Rich list: **distance, +time, tags** (shaded/indoor/water); **route impact** panel. | **Higher transparency** on trip impact |
+| **Feedback** | Optional comfort capture. | Structured **multi-option** feedback. | **More standardisable data** |
+| **Alter prefs** | Suggestions tied to route decisions. | **Sun** + **crowd** sliders (global). | **Simpler surface** than full profile; **night report** should discuss **crowd vs activity** wording at route level |
+| **Terminology** | Generic “comfort.” | **Too crowded** on feedback while you promote **activity** on night routes | **Flag for copy coherence** across day/night |
+
+**Figure annotation — F4:**  
+① **Route change** bullets (ETAs) — *predictability*.  
+② **Multi-select** stops + **Continue** — *user control*.  
+③ **Feedback → Alter prefs** bridge — *closed loop* (PDF’s iterative decision-making).  
+
+---
+
+# 3. PDF theme 3 — **Welcome, skip, home defaults, setup choice (Quick vs Detailed)**
+
+**Low-fi (PDF p.3):** **Skip** = fast entry, avoids drop-off; **default settings** now; **trust** pre-input; **Continue** → **choose setup**; **user control over effort**; **more vs less customisable** branches; **preference widget** from home.
+
+**Hi-fi (F1):** **Welcome** with **value subtitle + chips**; **Set preferences** vs **Skip**; **Quick (~30 s)** vs **Detailed (2–3 min)** cards; **Home** shows **defaults banner**, **comfort chips**, **bottom nav**.
+
+### 3.1 Feature-by-feature
+
+| Aspect | Low-fi (PDF) | Hi-fi | Δ |
+|--------|----------------|-------|---|
+| **Skip / friction** | Skippable; immediate access. | **Skip for now** secondary. | **Aligned** |
+| **Defaults visibility** | Encourage later personalisation. | **“Using default settings…”** line on Home. | **Stronger system status** |
+| **Trust** | Builds trust *before* heavy input. | Subtitle explains **why** prefs matter. | **Explicit help/docs** moved on-screen |
+| **Setup choice** | Two effort levels. | Two cards + **time badges**. | **Expectation management** |
+| **Global IA** | Preference widget on home. | **Home / Saved / Preferences** tabs. | **Institutionalised wayfinding** |
+
+**Figure annotation — F1:**  
+① **Primary vs secondary CTA** on Welcome.  
+② **Comfort chips** + **settings icon** (dual coding).  
+③ **Bottom nav** vs single-screen widget in sketch.  
+④ **Quick vs Detailed** honest time badges.
+
+---
+
+# 4. PDF theme 4 — **Comfort dimensions (safety, heat, crowd spectrum, rest, social, time) + profile**
+
+**Low-fi (PDF p.4 — dense research notes):** Safety **high priority (~29.3%)**; heat **top pain**; crowd **slider** (dislike crowding **and** emptiness); rest toggles (**manageable not just possible**); social comfort (**identity-based risk**); time trade-off (**deviation from shortest path**); profile **save returns** without replaying wizard; **features chosen by users**.
+
+**Hi-fi:** See **F1** (safety toggles, quick radios), **F2** (full detailed sequence — **two versions**), **F3** (time slider + Finish).
+
+### 4.1 Safety
+
+| Aspect | Low-fi | Hi-fi (F1 detailed safety) | Δ |
+|--------|--------|---------------------------|---|
+| **Count / granularity** | 3 toggles in sketch corpus. | **4 toggles** incl. **safer crossings**. | **Expanded** — matches **“why route”** crossings talk |
+| **Night language** | “low light” notions in research. | **“good lighting at night”** in copy. | **Direct night alignment** |
+
+**Annotations:** ① fourth toggle crossings; ② night lighting subtext.
+
+### 4.2 Heat & shade
+
+| Aspect | Low-fi | Hi-fi | Δ |
+|--------|--------|-------|---|
+| **Options** | Low / balanced / max (sketch corpus). | **Four radios** + **No shade**. | **Explicit “ignore shade”** |
+
+**Annotations:** ① **No shade** option; ② default **Balanced** selected.
+
+### 4.3 **Critical — Crowd: spectrum vs buckets**
+
+| Aspect | Low-fi (PDF p.4) | Hi-fi (F2) | Δ |
+|--------|------------------|------------|---|
+| **Control type** | **Slider** captures spectrum; avoids binary buckets. | **Four radios** (Deserted → Noisy). | **Representation change** — middle-ground via **labels**, not continuous thumb |
+| **Research trace** | “dislike heavy crowding **and** emptiness.” | Same idea **expressed as endpoints**; **Deserted** is a strong label. | Report must say whether this is **simplification for tap targets** or **drift from research fidelity** |
+
+**Annotations (F2 Crowd screen):** ① **question still says crowded** while night routes may use **activity** elsewhere — **terminology coherence**; ② **selected** tier vs slider mid-point in PDF.
+
+### 4.4 Rest & physical; social & cultural
+
+| Aspect | Low-fi | Hi-fi | Δ |
+|--------|--------|-------|---|
+| **Rest** | Independent toggles; suitability penalty if off. | Same pattern; **generic repeated helper text** in mock. | **Copy QA** |
+| **Social** | Shopping / community / familiar / active streets. | **24/7 store** etc.; **wrong subtitle** reused from Rest in some frames. | **Content bug** + semantic shift toward **night amenity** |
+
+**Annotations:** ① **subtitle error**; ② **24/7 store** vs “shopping” in sketch.
+
+### 4.5 Time trade-off
+
+| Aspect | Low-fi | Hi-fi | Δ |
+|--------|--------|-------|---|
+| **Range** | +5 / +10 / +15 style (sketch corpus). | **0–50** slider + **minute chips**. | **Broader willingness**; **affordance risk** on chips |
+
+**Annotations (F3 time):** ① **Finish** terminates wizard; ② **chips** vs continuous drag.
+
+### 4.6 **Structural evolution inside hi-fi (F2 top vs bottom row)**
+
+**This is internal hi-fi iteration but overlaps PDF ideas:**
+
+| Row | Structure | PDF alignment |
+|-----|-----------|---------------|
+| **Top (F2)** | Per-category **Save**, **no stepper** in description | Like **non-linear “adjust one dimension”** pages — closer to **profile edit** pattern |
+| **Bottom (F2)** | **Six-step stepper**, **Continue**, **Safety Profile** first | Closer to **guided onboarding** in teaching materials — **stronger linear scaffold** |
+
+**Report sentence:** *The PDF argues for **low cognitive load** and **non-linear return** after summary; the hi-fi **still supports** profile edit loops (F1 profiles) but **also** ships a **stepper-based** detailed wizard — combining **guidance** with **escape hatches**.*
+
+---
+
+# 5. PDF theme 5 — **Quick-setup grouping (high-priority factors + focused time screen)**
+
+**Low-fi (PDF p.5):** group **highest priority** comfort in **one step** to reduce screens; **checkbox quick multiselect**; **separate** screen for **time trade-off** (“route flexibility”); quick profile shows **only configured** prefs.
+
+**Hi-fi (F1):** **Quick** uses **two-step** pattern (safety **radios**, shade **radios**) + **time slider**; **Quick profile** shorter list; **Customise more**.
+
+### Feature deltas
+
+| Aspect | Low-fi | Hi-fi | Δ |
+|--------|--------|-------|---|
+| **Safety / shade input** | Checkboxes (multi). | **Single-select radios** per group in shown quick flow | **Mutually exclusive clusters** vs sketch “multiselect” |
+| **Time** | Dedicated screen emphasised. | Dedicated **slider** screen — **aligned** |
+| **Summary** | Only configured prefs. | **Three lines + customise** | **Aligned intent** |
+
+**Annotations (F1 quick):** ① **radio** vs PDF **checkbox** mental model; ② **2-step progress** chrome.
+
+---
+
+# 6. PDF theme 6 — **Home hub “Quick setup?” diamond + two profile hubs**
+
+**Low-fi (PDF p.6):** diamond **Quick vs Detailed**; **feature summary**; **edit** to related screen; **save** returns; **expand** quick → detailed; both **save → home**.
+
+**Hi-fi (F1):** **Visual** quick vs detailed choice on **Welcome path** + **profile** summaries; **Customise more** expands breadth.
+
+**Annotations:** ① **two summaries** (quick vs detailed list density); ② **explicit expand** affordance.
+
+---
+
+# 7. PDF theme 7 — **Search → compare routes → why → load → navigate**
+
+**Low-fi (PDF p.7):** search primary; **weather/context** for comfort; **familiarity** (recents); **dynamic filter**; **no dead ends**; **comfort vs efficiency** comparison; **weighted model**; **why** transparency; can **return** to route list; **Find Route** / suggestion triggers load.
+
+**Hi-fi (F3):** **Where to?**; saved + recent; typing + **suggestion meta** (“22 min • mostly shaded”); **no results** state; **CALCULATING** loader; **route cards** with comfort % and trade-off; **Why this route** rows (well-lit + crossings, shade, **low crowd**).
+
+### 7.1 Feature-by-feature
+
+| Aspect | Low-fi | Hi-fi | Δ |
+|--------|--------|-------|---|
+| **Search affordance** | Primary interaction. | Large field + **disabled Find** until valid — **error prevention** |
+| **Context strip** | Real-time comfort decisions. | **Feels like / UV / Clear** on Home |
+| **Suggestions** | Dynamic filter. | Typeahead + metadata |
+| **Empty state** | Prevent dead end. | **No results** copy |
+| **Comparison** | Comfort vs efficiency. | **Comfortable vs fastest vs shaded** (+ more) |
+| **Explainability** | Links to profile. | **Why** list with **High/Low** tags |
+| **Night framing** | Not explicit in PDF text extract. | Your Iteration 1 **night frames** (elsewhere) swap **shade/crowd lead** for **lighting/activity** — **pair figures** when claiming |
+
+**Annotations (F3):** ① **trade-off minutes** on recommended card; ② **Why** trio; ③ **suggestion subtitle** feeds forward outcome.
+
+---
+
+# 8. Diagrams — paste into appendix or inline
+
+## 8.1 **Trip spine** (PDF p.7 + F3 + F4)
+
+```mermaid
+flowchart LR
+  H[Home search context]
+  S_search[Search recents typeahead]
+  L[Loading calculate]
+  R[Route options compare]
+  Y[Why route explain]
+  N[Navigate]
+  X[Reroute offer]
+  B[Comfort stops]
+  A[Arrived]
+  F[Alter preferences]
+
+  H --> S_search --> L --> R --> Y --> N
+  N --> X --> N
+  N --> B --> N
+  N --> A --> F --> H
+
+  classDef lowfi fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#000
+  classDef hifi fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
+  classDef delta fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#000
+
+  class H,S_search,L,R,Y,N,B,A lowfi
+  class X,F hifi
+```
+
+**Note:** adjust `class` if you treat reroute/feedback as already in PDF — here **X** and **F** are emphasised as **richer hi-fi surfaces** (percent shade, structured alter).
+
+## 8.2 **Onboarding / setup** (PDF p.3–6 + F1 + F2)
 
 ```mermaid
 flowchart TB
-  subgraph ONB["Onboarding"]
-    W[Welcome skip or set prefs]
-    CH[Choose Quick or Detailed]
-    W --> CH
-  end
-  subgraph PREFS["Preferences"]
-    Q[Quick path]
-    D[Detailed wizard or editors]
-    P[Profile summary Save]
-    CH --> Q
-    CH --> D
-    Q --> P
-    D --> P
-  end
-  subgraph PLAN["Plan"]
-    H[Home search]
-    S[Search typeahead empty state]
-    L[Loading]
-    R[Route options compare]
-    Y[Why this route]
-    P --> H
-    H --> S --> L --> R --> Y
-  end
-  subgraph RUN["Navigate"]
-    N[Turn-by-turn]
-    RR[Reroute offer stay accept]
-    B[Comfort stops]
-    Y --> N
-    N --> RR --> N
-    N --> B --> N
-  end
-  subgraph AFTER["After"]
-    F[Arrived feedback]
-    A[Alter prefs Done]
-    N --> F --> A --> H
-  end
+  W[Welcome value chips]
+  CH[Choose Quick or Detailed]
+  QW[Quick path radios plus time]
+  DS[Detailed wizard toggles radios slider]
+  PQ[Quick profile summary]
+  PD[Detailed profile summary]
+  HM[Home]
+
+  W --> CH
+  CH --> QW --> PQ
+  CH --> DS --> PD
+  PQ --> HM
+  PD --> HM
+  PQ -.->|Customise more| PD
+
+  classDef lowfi fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#000
+  classDef hifi fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
+  classDef delta fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#000
+
+  class W,CH,QW,PQ,PD,HM lowfi
+  class DS delta
 ```
 
-### 5.2 **Reroute** decision (from PDF p.1)
-
-```mermaid
-flowchart LR
-  N[Navigating]
-  D{{Better comfort path detected}}
-  N --> D
-  D -->|Stay| N
-  D -->|Take| N2[Updated route e.g. more shade +3 min]
-```
-
-### 5.3 **Profile edit loop** (from PDF p.4–6)
-
-```mermaid
-flowchart LR
-  PS[Profile summary]
-  E[Category editor Save]
-  PS -->|Tap row| E --> PS
-```
+**Rationale for `delta` on `DS`:** stepper + **fourth** safety control + **crowd radios** + **no shade** + **0–50** time — **material evolution** from PDF’s **sketch-level** spec.
 
 ---
 
-## 6. **Night context & “activity” vs “crowd”** (what to write, precisely)
+# 9. **One summary matrix** (use once at end — not per section)
 
-**Single paragraph for the report body**
-
-> The low-fi annotations treat **safety**, **heat**, and **crowd-feel** as distinct lenses; **crowd** was conceptualised as a **spectrum** between **too empty** and **too packed**. The hi-fi **still encodes “busier corridors” under safety** (“**people nearby**”) while the **summary chips** and some **“Why this route?”** lines still say **Crowd**. For **Iteration 1**, **night** explanations should **foreground lighting, activity (safe busyness), and crossings** so the interface does not **over-sell shade-first** copy after dark; **rename visible labels** from **crowd** to **activity** only where the meaning is **pedestrian/amenity presence**, not thermal comfort.
-
-**Where to show it in figures**
-
-- **Pair** day vs night **route options** + **why** + **reroute** (F5/F6 variants).  
-- **Do not** overload **Welcome/Home** figures with night copy — one **cross-reference** sentence is enough.
-
----
-
-## 7. **Honesty checklist** (marker-safe)
-
-- [ ] **Low-fi PDF is not pixel-perfect screens** — it is **annotated flows**; hi-fi is **screen-ready**. Compare **intent → implementation**, not “missing pixel.”  
-- [ ] **Crowd: slider philosophy** (PDF p.4) vs **radio bins** (hi-fi) is a **real design delta** — **acknowledge** it.  
-- [ ] **Auto brightness** appears in **PDF p.1**; if **absent** in hi-fi, say **de-scoped** or **later iteration**.  
-- [ ] **SAFETY PROFILE** labels on some **search** crops — treat as **export artifact** unless present in final prototype.
+| Theme (PDF) | Hi-fi where it shows | Main delta | Evidence figure |
+|-------------|----------------------|------------|-----------------|
+| Environmental reroute + minutes | Nav suggestion + banner | +shade %, clearer confirmation | F4 |
+| Stops + feedback loop | Break list + arrived + alter | ETA timeline, structured feedback | F4 |
+| Skip + defaults + trust | Welcome + Home banner | stronger system status + IA | F1 |
+| Six comfort dimensions | Detailed + profiles | crowd **control type**; crossings; no shade; time range | F2, F1 |
+| Quick grouping | Quick 2-step + slider | radios vs PDF checkbox idiom | F1 |
+| Search + compare + why | Search + routes | rich cards + why rows | F3 |
 
 ---
 
-## 8. **Suggested report section order** (if submitting as one document)
+# 10. What to write in **your own words** (2–3 sentences)
 
-1. **Problem & participants** (brief)  
-2. **Low-fi method** (PDF pages 1–7 as corpus)  
-3. **Hi-fi summary** (F1–F3)  
-4. **Core journeys** (F4–F5 + Mermaid 5.1)  
-5. **Runtime** (F6–F7 + Mermaid 5.2)  
-6. **Post-trip & iteration** (F8 + alter prefs)  
-7. **Night context** (§6 + paired frames)  
-8. **Evaluation** (tie **pain points** → responses; include **limitations** from §7)
+*The PDF prototype encoded **research rationales** in the margins (safety weighting, heat pain, crowd spectrum, non-linear profile saves). The hi-fi **makes those ideas operable** through **standard components**, **clearer system status**, and **richer route and navigation feedback**, while introducing **specific representation shifts**—notably **crowd buckets vs slider** and **quick-flow radios vs checkbox mental models**—that should be defended as **design simplification** or revised toward the **original research fidelity**. Pair **day and night** route figures when claiming **activity-forward** language so terminology stays consistent with **preference and feedback** screens.*
 
 ---
 
-*Generated from text extraction of `WalkWell Prototype.pdf` (7 pages) plus hi-fi image descriptions. Update Figure F3/F5 if your latest Figma differs (e.g. duplicate crossings, label renames).*
+# 11. Honesty checklist (submission hygiene)
+
+- [ ] **Auto-brightness** (PDF p.1) — present in hi-fi? If not, say **not implemented** or **out of scope**.
+- [ ] **Crowd vs activity** — night route copy vs **Crowd** chips / **“Too crowded”** feedback — align or document **exception**.
+- [ ] **F2 top vs bottom** — clarify whether both are **submission canon** or **process artifacts**.
+- [ ] **Duplicate / wrong copy** — Social subtitle, Rest boilerplate — **QA** or acknowledge.
+
+---
+
+*Generated for: WalkWell SIT-style comparison. Low-fi text derived from PDF text extraction; hi-fi from provided composites and frame descriptions.*
